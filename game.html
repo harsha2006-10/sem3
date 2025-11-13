@@ -1,0 +1,413 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Tower of Hanoi — Game</title>
+<style>
+  :root{
+    --bg: #0f1724;
+    --panel: #0b1220;
+    --text: #e6eef8;
+    --muted: #9fb0c8;
+    --accent: #60a5fa;
+  }
+  *{box-sizing:border-box}
+  body{
+    margin:0;
+    font-family: Inter, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+    background: linear-gradient(180deg, #071021 0%, #0f1724 100%);
+    color:var(--text);
+    min-height:100vh;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    padding:24px;
+  }
+
+  .app {
+    width:100%;
+    max-width:980px;
+    background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
+    border-radius:12px;
+    padding:18px;
+    box-shadow: 0 8px 30px rgba(2,6,23,0.7);
+    border:1px solid rgba(255,255,255,0.03);
+  }
+
+  header {
+    display:flex;
+    gap:16px;
+    align-items:center;
+    justify-content:space-between;
+    margin-bottom:12px;
+  }
+
+  h1 { margin:0; font-size:18px; letter-spacing:0.2px; }
+  .controls {
+    display:flex;
+    gap:8px;
+    align-items:center;
+  }
+
+  select, button, input[type=number] {
+    background:transparent;
+    color:var(--text);
+    border:1px solid rgba(255,255,255,0.06);
+    padding:8px 10px;
+    border-radius:8px;
+    outline:none;
+    min-width:44px;
+  }
+  button {
+    cursor:pointer;
+    background: linear-gradient(180deg, rgba(96,165,250,0.14), rgba(96,165,250,0.08));
+    border:1px solid rgba(96,165,250,0.18);
+  }
+  button:active{transform:translateY(1px)}
+  .meta {
+    display:flex;
+    gap:12px;
+    align-items:center;
+    color:var(--muted);
+    font-size:14px;
+  }
+
+  .board {
+    margin-top:18px;
+    background: linear-gradient(180deg, rgba(255,255,255,0.01), rgba(255,255,255,0.00));
+    border-radius:10px;
+    padding:20px;
+  }
+
+  .towers {
+    display:flex;
+    justify-content:space-between;
+    gap:12px;
+    align-items:flex-end;
+    height:320px;
+    position:relative;
+  }
+
+  .rod {
+    flex:1;
+    min-width:0;
+    background: transparent;
+    display:flex;
+    justify-content:center;
+    align-items:flex-end;
+    padding-bottom:18px;
+    cursor:pointer;
+    transition:transform .12s ease;
+    position:relative;
+  }
+  .rod:hover { transform:translateY(-4px) }
+
+  .post {
+    width:10px;
+    height:200px;
+    background: linear-gradient(180deg,#2b3b57,#0f1b2b);
+    border-radius:6px;
+    position:relative;
+    top:-12px;
+    box-shadow: 0 6px 18px rgba(2,6,23,0.6);
+  }
+  .base {
+    position:absolute;
+    bottom:0;
+    left:0;
+    right:0;
+    height:12px;
+    background: linear-gradient(180deg,#1b2636,#0b1220);
+    border-radius:6px;
+  }
+
+  /* Disk styles */
+  .disk {
+    height:30px;
+    border-radius:6px;
+    margin-bottom:8px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    color:#071021;
+    font-weight:600;
+    transition:transform .18s ease, bottom .18s ease;
+    box-shadow: 0 6px 10px rgba(2,6,23,0.55);
+  }
+
+  .info {
+    display:flex;
+    gap:12px;
+    margin-top:12px;
+    align-items:center;
+    justify-content:space-between;
+  }
+
+  .hint { color:var(--muted); font-size:14px; }
+
+  .message {
+    margin-top:12px;
+    padding:10px;
+    background:rgba(96,165,250,0.06);
+    border:1px solid rgba(96,165,250,0.08);
+    border-radius:8px;
+    color:var(--text);
+  }
+
+  @media (max-width:700px){
+    .towers { height:260px; }
+    .disk { height:26px; }
+  }
+
+</style>
+</head>
+<body>
+  <div class="app" role="application" aria-label="Tower of Hanoi Game">
+    <header>
+      <div>
+        <h1>Tower of Hanoi — Interactive</h1>
+        <div style="font-size:13px;color:var(--muted)">Click a rod to pick the top disk, then click another rod to place it.</div>
+      </div>
+
+      <div class="controls" aria-hidden="false">
+        <label style="color:var(--muted);font-size:13px">Disks</label>
+        <select id="diskCount">
+          <option value="3" selected>3</option>
+          <option value="4">4</option>
+          <option value="5">5</option>
+          <option value="6">6</option>
+        </select>
+
+        <button id="newBtn">New Game</button>
+        <button id="resetBtn">Reset</button>
+      </div>
+    </header>
+
+    <div class="board">
+      <div class="towers" id="towers" aria-live="polite">
+        <!-- rods rendered by JS -->
+      </div>
+
+      <div class="info">
+        <div class="meta">
+          <div>Moves: <strong id="moveCount">0</strong></div>
+          <div style="color:var(--muted)">Minimum: <strong id="minMoves">7</strong></div>
+          <div style="color:var(--muted)">Selected: <strong id="selectedRod">None</strong></div>
+        </div>
+
+        <div class="hint">Goal: Move all disks from rod A to rod C following the rules.</div>
+      </div>
+
+      <div id="message" class="message" style="display:none;"></div>
+    </div>
+  </div>
+
+<script>
+/*
+  Tower of Hanoi Game (HTML/CSS/JS)
+  - Click rod to pick top disk
+  - Click another rod to place if legal
+  - Move counter, reset, new game
+*/
+
+const towersEl = document.getElementById('towers');
+const moveCountEl = document.getElementById('moveCount');
+const minMovesEl = document.getElementById('minMoves');
+const selectedRodEl = document.getElementById('selectedRod');
+const diskCountSelect = document.getElementById('diskCount');
+const newBtn = document.getElementById('newBtn');
+const resetBtn = document.getElementById('resetBtn');
+const messageEl = document.getElementById('message');
+
+let numDisks = parseInt(diskCountSelect.value,10);
+let towers = [[], [], []]; // arrays of sizes (1 smallest, n largest)
+let selected = null;
+let moves = 0;
+let initialState = null;
+
+// helper: compute minimum moves = 2^n - 1
+function minMoves(n){ return Math.pow(2,n) - 1; }
+
+function makeNewGame(n){
+  numDisks = n;
+  towers = [[], [], []];
+  for(let i = n; i >= 1; i--) towers[0].push(i); // all disks on rod 0
+  moves = 0;
+  selected = null;
+  initialState = JSON.stringify(towers);
+  updateUI();
+  showMessage('', false);
+}
+
+function resetGame(){
+  if(initialState){
+    towers = JSON.parse(initialState);
+    moves = 0;
+    selected = null;
+    updateUI();
+    showMessage('', false);
+  }
+}
+
+function showMessage(text, show=true){
+  if(!show){
+    messageEl.style.display = 'none';
+    messageEl.textContent = '';
+  } else {
+    messageEl.style.display = 'block';
+    messageEl.textContent = text;
+  }
+}
+
+function updateUI(){
+  // update counters
+  moveCountEl.textContent = moves;
+  minMovesEl.textContent = minMoves(numDisks);
+  selectedRodEl.textContent = selected === null ? 'None' : String.fromCharCode(65 + selected);
+
+  // render rods
+  towersEl.innerHTML = '';
+  for(let r = 0; r < 3; r++){
+    const rodEl = document.createElement('div');
+    rodEl.className = 'rod';
+    rodEl.dataset.rod = r;
+
+    // center post
+    const pillar = document.createElement('div');
+    pillar.className = 'post';
+    rodEl.appendChild(pillar);
+
+    // stack container to position disks above base
+    const stack = document.createElement('div');
+    stack.style.position = 'absolute';
+    stack.style.bottom = '18px';
+    stack.style.left = '12%';
+    stack.style.right = '12%';
+    stack.style.height = '240px';
+    stack.style.display = 'flex';
+    stack.style.flexDirection = 'column-reverse';
+    stack.style.alignItems = 'center';
+    stack.style.justifyContent = 'flex-start';
+    stack.style.pointerEvents = 'none'; // disks not directly clickable
+    rodEl.appendChild(stack);
+
+    // add disk elements (top at end of towers[r] array)
+    const arr = towers[r];
+    for(let i = 0; i < arr.length; i++){
+      const size = arr[i];
+      const disk = document.createElement('div');
+      disk.className = 'disk';
+      disk.style.width = (20 + size * (60 / numDisks)) + '%'; // relative width
+      disk.style.maxWidth = (120 + size * 12) + 'px';
+      disk.style.minWidth = (40 + size * 8) + 'px';
+      disk.style.background = `linear-gradient(90deg, hsl(${40 + size*28%360} 70% 60%), hsl(${10 + size*18%360} 60% 48%))`;
+      disk.textContent = size;
+      disk.setAttribute('aria-hidden','true');
+      disk.style.pointerEvents = 'none';
+      stack.appendChild(disk);
+    }
+
+    // base
+    const base = document.createElement('div');
+    base.className = 'base';
+    rodEl.appendChild(base);
+
+    // highlight selection
+    if(selected === r){
+      rodEl.style.boxShadow = '0 8px 30px rgba(96,165,250,0.14) inset, 0 6px 20px rgba(96,165,250,0.06)';
+      rodEl.style.borderRadius = '10px';
+    } else {
+      rodEl.style.boxShadow = 'none';
+      rodEl.style.borderRadius = '0';
+    }
+
+    // rod click handler
+    rodEl.addEventListener('click', () => rodClicked(r));
+    towersEl.appendChild(rodEl);
+  }
+}
+
+function rodClicked(r){
+  // if no disk selected: try pick
+  if(selected === null){
+    if(towers[r].length === 0){
+      // nothing to pick
+      return;
+    }
+    selected = r;
+    updateUI();
+    return;
+  }
+
+  // if clicked same rod: unselect
+  if(selected === r){
+    selected = null;
+    updateUI();
+    return;
+  }
+
+  // attempt move from selected -> r
+  const from = selected;
+  const to = r;
+
+  const fromTop = towers[from][towers[from].length - 1];
+  const toTop = towers[to][towers[to].length - 1];
+
+  // legal if to is empty or top disk on to is larger than moving disk
+  if(!toTop || fromTop < toTop){
+    // perform move
+    towers[to].push(towers[from].pop());
+    moves++;
+    selected = null;
+    updateUI();
+    checkWin();
+  } else {
+    // illegal move: show brief message
+    flashInvalid();
+  }
+}
+
+function flashInvalid(){
+  showMessage('Invalid move — cannot place larger disk on smaller disk.', true);
+  setTimeout(()=> showMessage('', false), 1400);
+}
+
+function checkWin(){
+  // win when all disks in towers[2]
+  if(towers[2].length === numDisks){
+    const msg = `You solved it in ${moves} moves! Minimum is ${minMoves(numDisks)}.`;
+    showMessage(msg, true);
+  }
+}
+
+// initialize
+makeNewGame(numDisks);
+
+// wire controls
+diskCountSelect.addEventListener('change', (e) => {
+  const v = parseInt(e.target.value,10);
+  makeNewGame(v);
+});
+
+newBtn.addEventListener('click', () => {
+  const v = parseInt(diskCountSelect.value,10);
+  makeNewGame(v);
+});
+
+resetBtn.addEventListener('click', () => { resetGame(); });
+
+// keyboard accessibility: keys 1,2,3 to pick rods; Enter to reset
+document.addEventListener('keydown', (e) => {
+  if(e.key === '1' || e.key === '2' || e.key === '3'){
+    const idx = parseInt(e.key,10) - 1;
+    rodClicked(idx);
+  } else if(e.key === 'r' || e.key === 'R'){
+    resetGame();
+  } else if(e.key === 'n' || e.key === 'N'){
+    makeNewGame(parseInt(diskCountSelect.value,10));
+  }
+});
+</script>
+</body>
+</html>

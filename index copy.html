@@ -1,0 +1,3501 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DSA Learning Agent v2.0 - Enhanced Interactive Learning Platform</title>
+    <style>
+        /* Perplexity Design System */
+        :root {
+            /* Primitive Color Tokens */
+            --color-white: rgba(255, 255, 255, 1);
+            --color-black: rgba(0, 0, 0, 1);
+            --color-cream-50: rgba(252, 252, 249, 1);
+            --color-cream-100: rgba(255, 255, 253, 1);
+            --color-gray-200: rgba(245, 245, 245, 1);
+            --color-gray-300: rgba(167, 169, 169, 1);
+            --color-gray-400: rgba(119, 124, 124, 1);
+            --color-slate-500: rgba(98, 108, 113, 1);
+            --color-brown-600: rgba(94, 82, 64, 1);
+            --color-charcoal-700: rgba(31, 33, 33, 1);
+            --color-charcoal-800: rgba(38, 40, 40, 1);
+            --color-slate-900: rgba(19, 52, 59, 1);
+            --color-teal-300: rgba(50, 184, 198, 1);
+            --color-teal-400: rgba(45, 166, 178, 1);
+            --color-teal-500: rgba(33, 128, 141, 1);
+            --color-teal-600: rgba(29, 116, 128, 1);
+            --color-teal-700: rgba(26, 104, 115, 1);
+            --color-teal-800: rgba(41, 150, 161, 1);
+            --color-red-400: rgba(255, 84, 89, 1);
+            --color-red-500: rgba(192, 21, 47, 1);
+            --color-orange-400: rgba(230, 129, 97, 1);
+            --color-orange-500: rgba(168, 75, 47, 1);
+
+            /* RGB versions for opacity control */
+            --color-brown-600-rgb: 94, 82, 64;
+            --color-teal-500-rgb: 33, 128, 141;
+            --color-slate-900-rgb: 19, 52, 59;
+            --color-slate-500-rgb: 98, 108, 113;
+            --color-red-500-rgb: 192, 21, 47;
+            --color-red-400-rgb: 255, 84, 89;
+            --color-orange-500-rgb: 168, 75, 47;
+            --color-orange-400-rgb: 230, 129, 97;
+
+            /* Background color tokens (Light Mode) */
+            --color-bg-1: rgba(59, 130, 246, 0.08);
+            --color-bg-2: rgba(245, 158, 11, 0.08);
+            --color-bg-3: rgba(34, 197, 94, 0.08);
+            --color-bg-4: rgba(239, 68, 68, 0.08);
+            --color-bg-5: rgba(147, 51, 234, 0.08);
+            --color-bg-6: rgba(249, 115, 22, 0.08);
+            --color-bg-7: rgba(236, 72, 153, 0.08);
+            --color-bg-8: rgba(6, 182, 212, 0.08);
+
+            /* Semantic Color Tokens (Light Mode) */
+            --color-background: var(--color-cream-50);
+            --color-surface: var(--color-cream-100);
+            --color-text: var(--color-slate-900);
+            --color-text-secondary: var(--color-slate-500);
+            --color-primary: var(--color-teal-500);
+            --color-primary-hover: var(--color-teal-600);
+            --color-primary-active: var(--color-teal-700);
+            --color-secondary: rgba(var(--color-brown-600-rgb), 0.12);
+            --color-secondary-hover: rgba(var(--color-brown-600-rgb), 0.2);
+            --color-secondary-active: rgba(var(--color-brown-600-rgb), 0.25);
+            --color-border: rgba(var(--color-brown-600-rgb), 0.2);
+            --color-btn-primary-text: var(--color-cream-50);
+            --color-card-border: rgba(var(--color-brown-600-rgb), 0.12);
+            --color-card-border-inner: rgba(var(--color-brown-600-rgb), 0.12);
+            --color-error: var(--color-red-500);
+            --color-success: var(--color-teal-500);
+            --color-warning: var(--color-orange-500);
+            --color-info: var(--color-slate-500);
+            --color-focus-ring: rgba(var(--color-teal-500-rgb), 0.4);
+            --color-select-caret: rgba(var(--color-slate-900-rgb), 0.8);
+
+            /* Common style patterns */
+            --focus-ring: 0 0 0 3px var(--color-focus-ring);
+            --focus-outline: 2px solid var(--color-primary);
+            --status-bg-opacity: 0.15;
+            --status-border-opacity: 0.25;
+            --select-caret-light: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%23134252' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
+            --select-caret-dark: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%23f5f5f5' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
+
+            /* RGB versions for opacity control */
+            --color-success-rgb: 33, 128, 141;
+            --color-error-rgb: 192, 21, 47;
+            --color-warning-rgb: 168, 75, 47;
+            --color-info-rgb: 98, 108, 113;
+
+            /* Typography */
+            --font-family-base: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            --font-family-mono: "Berkeley Mono", ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+            --font-size-xs: 11px;
+            --font-size-sm: 12px;
+            --font-size-base: 14px;
+            --font-size-md: 14px;
+            --font-size-lg: 16px;
+            --font-size-xl: 18px;
+            --font-size-2xl: 20px;
+            --font-size-3xl: 24px;
+            --font-size-4xl: 30px;
+            --font-weight-normal: 400;
+            --font-weight-medium: 500;
+            --font-weight-semibold: 550;
+            --font-weight-bold: 600;
+            --line-height-tight: 1.2;
+            --line-height-normal: 1.5;
+            --letter-spacing-tight: -0.01em;
+
+            /* Spacing */
+            --space-0: 0;
+            --space-1: 1px;
+            --space-2: 2px;
+            --space-4: 4px;
+            --space-6: 6px;
+            --space-8: 8px;
+            --space-10: 10px;
+            --space-12: 12px;
+            --space-16: 16px;
+            --space-20: 20px;
+            --space-24: 24px;
+            --space-32: 32px;
+
+            /* Border Radius */
+            --radius-sm: 6px;
+            --radius-base: 8px;
+            --radius-md: 10px;
+            --radius-lg: 12px;
+            --radius-full: 9999px;
+
+            /* Shadows */
+            --shadow-xs: 0 1px 2px rgba(0, 0, 0, 0.02);
+            --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.04), 0 1px 2px rgba(0, 0, 0, 0.02);
+            --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.04), 0 2px 4px -1px rgba(0, 0, 0, 0.02);
+            --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.04), 0 4px 6px -2px rgba(0, 0, 0, 0.02);
+            --shadow-inset-sm: inset 0 1px 0 rgba(255, 255, 255, 0.15), inset 0 -1px 0 rgba(0, 0, 0, 0.03);
+
+            /* Animation */
+            --duration-fast: 150ms;
+            --duration-normal: 250ms;
+            --ease-standard: cubic-bezier(0.16, 1, 0.3, 1);
+
+            /* Layout */
+            --container-sm: 640px;
+            --container-md: 768px;
+            --container-lg: 1024px;
+            --container-xl: 1280px;
+        }
+
+        /* Base styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            font-size: var(--font-size-base);
+            font-family: var(--font-family-base);
+            line-height: var(--line-height-normal);
+            color: var(--color-text);
+            background-color: var(--color-background);
+            -webkit-font-smoothing: antialiased;
+        }
+
+        body {
+            margin: 0;
+            padding: 0;
+        }
+
+        h1, h2, h3, h4, h5, h6 {
+            margin: 0;
+            font-weight: var(--font-weight-semibold);
+            line-height: var(--line-height-tight);
+            color: var(--color-text);
+            letter-spacing: var(--letter-spacing-tight);
+        }
+
+        h1 { font-size: var(--font-size-4xl); }
+        h2 { font-size: var(--font-size-3xl); }
+        h3 { font-size: var(--font-size-2xl); }
+        h4 { font-size: var(--font-size-xl); }
+        h5 { font-size: var(--font-size-lg); }
+        h6 { font-size: var(--font-size-md); }
+
+        p {
+            margin: 0 0 var(--space-16) 0;
+        }
+
+        /* Button styles */
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: var(--space-8) var(--space-16);
+            border-radius: var(--radius-base);
+            font-size: var(--font-size-base);
+            font-weight: 500;
+            line-height: 1.5;
+            cursor: pointer;
+            transition: all var(--duration-normal) var(--ease-standard);
+            border: none;
+            text-decoration: none;
+        }
+
+        .btn:focus-visible {
+            outline: none;
+            box-shadow: var(--focus-ring);
+        }
+
+        .btn--primary {
+            background: var(--color-primary);
+            color: var(--color-btn-primary-text);
+        }
+
+        .btn--primary:hover {
+            background: var(--color-primary-hover);
+        }
+
+        .btn--secondary {
+            background: var(--color-secondary);
+            color: var(--color-text);
+            border: 1px solid var(--color-border);
+        }
+
+        .btn--secondary:hover {
+            background: var(--color-secondary-hover);
+        }
+
+        /* Card component */
+        .card {
+            background-color: var(--color-surface);
+            border-radius: var(--radius-lg);
+            border: 1px solid var(--color-card-border);
+            box-shadow: var(--shadow-sm);
+            overflow: hidden;
+            transition: box-shadow var(--duration-normal) var(--ease-standard);
+        }
+
+        .card:hover {
+            box-shadow: var(--shadow-md);
+        }
+
+        .card__body {
+            padding: var(--space-16);
+        }
+
+        /* Custom app styles */
+        .app-container {
+            min-height: 100vh;
+            background: var(--color-background);
+        }
+
+        .header {
+            background: var(--color-surface);
+            border-bottom: 1px solid var(--color-border);
+            padding: var(--space-16) 0;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .header-content {
+            max-width: var(--container-xl);
+            margin: 0 auto;
+            padding: 0 var(--space-16);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: var(--space-16);
+        }
+
+        .theme-controls {
+            display: flex;
+            align-items: center;
+            gap: var(--space-8);
+        }
+
+        .theme-toggle {
+            background: var(--color-secondary);
+            border: 1px solid var(--color-border);
+            border-radius: var(--radius-full);
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all var(--duration-fast) var(--ease-standard);
+            font-size: var(--font-size-lg);
+        }
+
+        .theme-toggle:hover {
+            background: var(--color-secondary-hover);
+            transform: scale(1.1);
+        }
+
+        .logo {
+            font-size: var(--font-size-2xl);
+            font-weight: var(--font-weight-bold);
+            color: var(--color-primary);
+        }
+
+        .nav-menu {
+            display: flex;
+            gap: var(--space-8);
+            flex-wrap: wrap;
+        }
+
+        .nav-btn {
+            padding: var(--space-8) var(--space-12);
+            border-radius: var(--radius-base);
+            background: none;
+            border: none;
+            color: var(--color-text-secondary);
+            cursor: pointer;
+            transition: all var(--duration-fast) var(--ease-standard);
+            font-size: var(--font-size-sm);
+        }
+
+        .nav-btn:hover,
+        .nav-btn.active {
+            background: var(--color-bg-1);
+            color: var(--color-primary);
+        }
+
+        .main-content {
+            max-width: var(--container-xl);
+            margin: 0 auto;
+            padding: var(--space-24) var(--space-16);
+        }
+
+        .section {
+            display: none;
+        }
+
+        .section.active {
+            display: block;
+        }
+
+        .hero {
+            text-align: center;
+            margin-bottom: var(--space-32);
+        }
+
+        .hero h1 {
+            margin-bottom: var(--space-16);
+            background: linear-gradient(135deg, var(--color-primary), var(--color-teal-700));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .hero p {
+            font-size: var(--font-size-lg);
+            color: var(--color-text-secondary);
+            margin-bottom: var(--space-24);
+        }
+
+        .feature-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: var(--space-20);
+            margin-top: var(--space-32);
+        }
+
+        .feature-card {
+            padding: var(--space-24);
+            text-align: center;
+            cursor: pointer;
+            transition: all var(--duration-normal) var(--ease-standard);
+        }
+
+        .feature-card:hover {
+            transform: translateY(-2px);
+        }
+
+        .feature-icon {
+            width: 48px;
+            height: 48px;
+            background: var(--color-bg-1);
+            border-radius: var(--radius-lg);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto var(--space-16) auto;
+            font-size: var(--font-size-2xl);
+        }
+
+        .two-column-layout {
+            display: grid;
+            grid-template-columns: 250px 1fr;
+            gap: var(--space-24);
+            min-height: 70vh;
+        }
+
+        .sidebar {
+            background: var(--color-surface);
+            border-radius: var(--radius-lg);
+            border: 1px solid var(--color-card-border);
+            padding: var(--space-16);
+            height: fit-content;
+            position: sticky;
+            top: 120px;
+        }
+
+        .sidebar h3 {
+            margin-bottom: var(--space-16);
+            font-size: var(--font-size-lg);
+        }
+
+        .category-btn {
+            display: block;
+            width: 100%;
+            text-align: left;
+            padding: var(--space-8) var(--space-12);
+            margin-bottom: var(--space-4);
+            background: none;
+            border: none;
+            border-radius: var(--radius-base);
+            color: var(--color-text-secondary);
+            cursor: pointer;
+            transition: all var(--duration-fast) var(--ease-standard);
+            font-size: var(--font-size-sm);
+        }
+
+        .category-btn:hover,
+        .category-btn.active {
+            background: var(--color-bg-1);
+            color: var(--color-primary);
+        }
+
+        .content-area {
+            background: var(--color-surface);
+            border-radius: var(--radius-lg);
+            border: 1px solid var(--color-card-border);
+            padding: var(--space-24);
+        }
+
+        .items-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: var(--space-16);
+        }
+
+        .item-card {
+            padding: var(--space-16);
+            border: 1px solid var(--color-card-border-inner);
+            border-radius: var(--radius-base);
+            cursor: pointer;
+            transition: all var(--duration-normal) var(--ease-standard);
+        }
+
+        .item-card:hover {
+            background: var(--color-bg-1);
+            border-color: var(--color-primary);
+        }
+
+        .item-card h4 {
+            margin-bottom: var(--space-8);
+        }
+
+        .item-detail {
+            max-width: 800px;
+        }
+
+        .detail-section {
+            margin-bottom: var(--space-24);
+        }
+
+        .detail-section h4 {
+            margin-bottom: var(--space-8);
+            color: var(--color-primary);
+        }
+
+        .code-block {
+            background: var(--color-bg-2);
+            border: 1px solid var(--color-border);
+            border-radius: var(--radius-base);
+            padding: var(--space-16);
+            font-family: var(--font-family-mono);
+            font-size: var(--font-size-sm);
+            overflow-x: auto;
+            margin: var(--space-12) 0;
+        }
+
+        .complexity-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: var(--space-16) 0;
+        }
+
+        .complexity-table th,
+        .complexity-table td {
+            text-align: left;
+            padding: var(--space-12);
+            border-bottom: 1px solid var(--color-border);
+        }
+
+        .complexity-table th {
+            background: var(--color-bg-1);
+            font-weight: var(--font-weight-semibold);
+        }
+
+        .form-control {
+            display: block;
+            width: 100%;
+            padding: var(--space-8) var(--space-12);
+            font-size: var(--font-size-md);
+            line-height: 1.5;
+            color: var(--color-text);
+            background-color: var(--color-surface);
+            border: 1px solid var(--color-border);
+            border-radius: var(--radius-base);
+            transition: border-color var(--duration-fast) var(--ease-standard);
+            margin-bottom: var(--space-16);
+        }
+
+        .form-control:focus {
+            border-color: var(--color-primary);
+            outline: var(--focus-outline);
+        }
+
+        select.form-control {
+            -webkit-appearance: none;
+            -moz-appearance: none;
+            appearance: none;
+            background-image: var(--select-caret-light);
+            background-repeat: no-repeat;
+            background-position: right var(--space-12) center;
+            background-size: 16px;
+            padding-right: var(--space-32);
+        }
+
+        .quiz-question {
+            margin-bottom: var(--space-24);
+        }
+
+        .quiz-options {
+            display: flex;
+            flex-direction: column;
+            gap: var(--space-8);
+            margin: var(--space-16) 0;
+        }
+
+        .quiz-option {
+            padding: var(--space-12);
+            background: var(--color-surface);
+            border: 1px solid var(--color-border);
+            border-radius: var(--radius-base);
+            cursor: pointer;
+            transition: all var(--duration-fast) var(--ease-standard);
+        }
+
+        .quiz-option:hover {
+            background: var(--color-bg-1);
+            border-color: var(--color-primary);
+        }
+
+        .quiz-option.selected {
+            background: var(--color-bg-1);
+            border-color: var(--color-primary);
+            color: var(--color-primary);
+        }
+
+        .quiz-option.correct {
+            background: rgba(var(--color-success-rgb), 0.1);
+            border-color: var(--color-success);
+            color: var(--color-success);
+        }
+
+        .quiz-option.incorrect {
+            background: rgba(var(--color-error-rgb), 0.1);
+            border-color: var(--color-error);
+            color: var(--color-error);
+        }
+
+        .quiz-progress {
+            background: var(--color-bg-1);
+            height: 8px;
+            border-radius: var(--radius-full);
+            margin-bottom: var(--space-16);
+            overflow: hidden;
+        }
+
+        .quiz-progress-bar {
+            height: 100%;
+            background: var(--color-primary);
+            border-radius: var(--radius-full);
+            transition: width var(--duration-normal) var(--ease-standard);
+        }
+
+        .quiz-score {
+            text-align: center;
+            padding: var(--space-24);
+            background: var(--color-bg-1);
+            border-radius: var(--radius-lg);
+            margin: var(--space-24) 0;
+        }
+
+        .roadmap-step {
+            display: flex;
+            align-items: flex-start;
+            gap: var(--space-16);
+            margin-bottom: var(--space-24);
+        }
+
+        .step-number {
+            width: 32px;
+            height: 32px;
+            background: var(--color-primary);
+            color: var(--color-btn-primary-text);
+            border-radius: var(--radius-full);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: var(--font-weight-bold);
+            font-size: var(--font-size-sm);
+            flex-shrink: 0;
+        }
+
+        .back-btn {
+            margin-bottom: var(--space-16);
+            color: var(--color-primary);
+            background: none;
+            border: none;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: var(--space-4);
+            font-size: var(--font-size-sm);
+        }
+
+        .back-btn:hover {
+            color: var(--color-primary-hover);
+        }
+
+        /* Responsive design */
+        /* Responsive design */
+        @media (max-width: 768px) {
+            .header-content {
+                flex-direction: column;
+                gap: var(--space-12);
+            }
+
+            .nav-menu {
+                justify-content: center;
+                flex-wrap: wrap;
+            }
+
+            .two-column-layout {
+                grid-template-columns: 1fr;
+                gap: var(--space-16);
+            }
+
+            .sidebar {
+                position: static;
+                margin-bottom: var(--space-16);
+            }
+
+            .feature-grid,
+            .dashboard-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .cheat-sheet-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .items-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .sorting-bars {
+                height: 150px;
+            }
+            
+            .bar {
+                min-width: 15px;
+                font-size: 10px;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .main-content {
+                padding: var(--space-16) var(--space-8);
+            }
+            
+            .nav-btn {
+                padding: var(--space-6) var(--space-8);
+                font-size: 11px;
+            }
+            
+            .logo {
+                font-size: var(--font-size-xl);
+            }
+        }
+
+        /* Enhanced styles for v2.0 */
+        .dashboard-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: var(--space-20);
+            margin: var(--space-24) 0;
+        }
+
+        .progress-card {
+            background: linear-gradient(135deg, var(--color-bg-1), var(--color-bg-3));
+            border-radius: var(--radius-lg);
+            padding: var(--space-24);
+            color: var(--color-text);
+        }
+
+        .progress-bar {
+            background: var(--color-bg-2);
+            border-radius: var(--radius-full);
+            height: 8px;
+            overflow: hidden;
+            margin: var(--space-8) 0;
+        }
+
+        .progress-fill {
+            background: var(--color-primary);
+            height: 100%;
+            border-radius: var(--radius-full);
+            transition: width var(--duration-normal) var(--ease-standard);
+        }
+
+        .badge-container {
+            display: flex;
+            gap: var(--space-8);
+            flex-wrap: wrap;
+            margin: var(--space-16) 0;
+        }
+
+        .badge {
+            display: inline-flex;
+            align-items: center;
+            gap: var(--space-4);
+            padding: var(--space-4) var(--space-8);
+            background: var(--color-bg-5);
+            border-radius: var(--radius-full);
+            font-size: var(--font-size-sm);
+            font-weight: var(--font-weight-medium);
+        }
+
+        .difficulty-selector {
+            display: flex;
+            gap: var(--space-8);
+            margin: var(--space-16) 0;
+            padding: var(--space-4);
+            background: var(--color-bg-1);
+            border-radius: var(--radius-base);
+        }
+
+        .difficulty-btn {
+            padding: var(--space-8) var(--space-16);
+            border: none;
+            background: none;
+            border-radius: var(--radius-base);
+            cursor: pointer;
+            transition: all var(--duration-fast) var(--ease-standard);
+            font-weight: var(--font-weight-medium);
+        }
+
+        .difficulty-btn.active {
+            background: var(--color-primary);
+            color: var(--color-btn-primary-text);
+        }
+
+        .difficulty-btn:not(.active):hover {
+            background: var(--color-secondary);
+        }
+
+        .practice-problem {
+            border: 1px solid var(--color-border);
+            border-radius: var(--radius-base);
+            padding: var(--space-16);
+            margin: var(--space-12) 0;
+        }
+
+        .problem-difficulty {
+            display: inline-block;
+            padding: var(--space-2) var(--space-8);
+            border-radius: var(--radius-full);
+            font-size: var(--font-size-xs);
+            font-weight: var(--font-weight-bold);
+            text-transform: uppercase;
+        }
+
+        .difficulty-easy { background: var(--color-bg-3); color: var(--color-success); }
+        .difficulty-medium { background: var(--color-bg-2); color: var(--color-warning); }
+        .difficulty-hard { background: var(--color-bg-4); color: var(--color-error); }
+
+        .code-playground {
+            background: var(--color-surface);
+            border: 1px solid var(--color-border);
+            border-radius: var(--radius-lg);
+            overflow: hidden;
+            margin: var(--space-16) 0;
+        }
+
+        .code-editor {
+            width: 100%;
+            min-height: 200px;
+            padding: var(--space-16);
+            font-family: var(--font-family-mono);
+            font-size: var(--font-size-sm);
+            background: var(--color-background);
+            border: none;
+            resize: vertical;
+            outline: none;
+        }
+
+        .editor-controls {
+            display: flex;
+            gap: var(--space-8);
+            padding: var(--space-12);
+            background: var(--color-bg-1);
+            border-top: 1px solid var(--color-border);
+        }
+
+        .visualization-container {
+            background: var(--color-surface);
+            border: 1px solid var(--color-border);
+            border-radius: var(--radius-lg);
+            padding: var(--space-20);
+            margin: var(--space-16) 0;
+            text-align: center;
+        }
+
+        .viz-controls {
+            display: flex;
+            justify-content: center;
+            gap: var(--space-8);
+            margin: var(--space-16) 0;
+        }
+
+        .viz-btn {
+            padding: var(--space-8) var(--space-12);
+            border: 1px solid var(--color-border);
+            background: var(--color-surface);
+            border-radius: var(--radius-base);
+            cursor: pointer;
+            font-size: var(--font-size-sm);
+        }
+
+        .viz-btn:hover {
+            background: var(--color-bg-1);
+        }
+
+        .sorting-bars {
+            display: flex;
+            align-items: end;
+            justify-content: center;
+            gap: var(--space-2);
+            height: 200px;
+            margin: var(--space-16) 0;
+        }
+
+        .bar {
+            background: var(--color-primary);
+            border-radius: var(--radius-sm) var(--radius-sm) 0 0;
+            min-width: 20px;
+            transition: all var(--duration-normal) var(--ease-standard);
+            display: flex;
+            align-items: end;
+            justify-content: center;
+            color: var(--color-btn-primary-text);
+            font-size: var(--font-size-xs);
+            font-weight: var(--font-weight-bold);
+            padding: var(--space-2);
+        }
+
+        .bar.comparing {
+            background: var(--color-warning);
+        }
+
+        .bar.sorted {
+            background: var(--color-success);
+        }
+
+        .daily-challenge {
+            background: linear-gradient(135deg, var(--color-bg-6), var(--color-bg-7));
+            border-radius: var(--radius-lg);
+            padding: var(--space-20);
+            text-align: center;
+            margin: var(--space-16) 0;
+        }
+
+        .streak-counter {
+            display: inline-flex;
+            align-items: center;
+            gap: var(--space-8);
+            padding: var(--space-8) var(--space-16);
+            background: var(--color-bg-1);
+            border-radius: var(--radius-full);
+            font-weight: var(--font-weight-bold);
+        }
+
+        .glossary-term {
+            color: var(--color-primary);
+            text-decoration: underline;
+            cursor: pointer;
+            position: relative;
+        }
+
+        .glossary-popup {
+            position: absolute;
+            top: 100%;
+            left: 50%;
+            transform: translateX(-50%);
+            background: var(--color-surface);
+            border: 1px solid var(--color-border);
+            border-radius: var(--radius-base);
+            padding: var(--space-12);
+            max-width: 300px;
+            box-shadow: var(--shadow-lg);
+            z-index: 1000;
+            font-size: var(--font-size-sm);
+            display: none;
+        }
+
+        .cheat-sheet-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: var(--space-16);
+            margin: var(--space-20) 0;
+        }
+
+        .cheat-card {
+            background: var(--color-bg-1);
+            border-radius: var(--radius-base);
+            padding: var(--space-16);
+        }
+
+        /* Animation for smooth transitions */
+        .fade-in {
+            animation: fadeIn 0.3s ease-in;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .slide-in {
+            animation: slideIn 0.5s var(--ease-standard);
+        }
+
+        @keyframes slideIn {
+            from { transform: translateX(-20px); opacity: 0; }
+            to { transform: translateX(0); opacity: 1; }
+        }
+
+        .bounce {
+            animation: bounce 0.6s var(--ease-standard);
+        }
+
+        @keyframes bounce {
+            0%, 20%, 53%, 80%, 100% {
+                transform: translateY(0);
+            }
+            40%, 43% {
+                transform: translateY(-10px);
+            }
+            70% {
+                transform: translateY(-5px);
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="app-container">
+        <!-- Header -->
+        <header class="header">
+            <div class="header-content">
+                <div class="logo">DSA Learning Agent</div>
+                <nav class="nav-menu">
+                    <button class="nav-btn active" onclick="showSection('dashboard')">Dashboard</button>
+                    <button class="nav-btn" onclick="showSection('learn')">Learn</button>
+                    <button class="nav-btn" onclick="showSection('practice')">Practice</button>
+                    <button class="nav-btn" onclick="showSection('visualize')">Visualize</button>
+                    <button class="nav-btn" onclick="showSection('quiz')">Quiz</button>
+                    <button class="nav-btn" onclick="showSection('resources')">Resources</button>
+                    <button class="nav-btn" onclick="showSection('profile')">Profile</button>
+                </nav>
+                <div class="theme-controls">
+                    <button class="theme-toggle" onclick="toggleTheme()" title="Toggle dark/light mode">🌙</button>
+                </div>
+            </div>
+        </header>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <!-- Dashboard Section -->
+            <section id="dashboard" class="section active">
+                <div class="hero fade-in">
+                    <h1>DSA Learning Agent</h1>
+                    <p>Your Personal Guide to Data Structures &amp; Algorithms</p>
+                    <p>Master the fundamentals of computer science with interactive explanations, examples, and quizzes designed for beginners.</p>
+                </div>
+                
+                <div class="dashboard-grid">
+                    <div class="card progress-card">
+                        <h3>Learning Progress</h3>
+                        <div style="margin: var(--space-16) 0;">
+                            <div style="display: flex; justify-content: space-between; margin-bottom: var(--space-8);">
+                                <span>Data Structures:</span>
+                                <span><strong>75%</strong></span>
+                            </div>
+                            <div class="progress-bar">
+                                <div class="progress-fill" style="width: 75%;"></div>
+                            </div>
+                            
+                            <div style="display: flex; justify-content: space-between; margin-bottom: var(--space-8); margin-top: var(--space-12);">
+                                <span>Algorithms:</span>
+                                <span><strong>60%</strong></span>
+                            </div>
+                            <div class="progress-bar">
+                                <div class="progress-fill" style="width: 60%;"></div>
+                            </div>
+                            
+                            <div style="display: flex; justify-content: space-between; margin-bottom: var(--space-8); margin-top: var(--space-12);">
+                                <span>Overall Progress:</span>
+                                <span><strong>67%</strong></span>
+                            </div>
+                            <div class="progress-bar">
+                                <div class="progress-fill" style="width: 67%;"></div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="card">
+                        <div class="card__body">
+                            <h3>Recent Achievements</h3>
+                            <div class="badge-container">
+                                <div class="badge">🎯 First Steps</div>
+                                <div class="badge">💡 Problem Solver</div>
+                                <div class="badge">🔥 Streak Keeper</div>
+                            </div>
+                            <div class="streak-counter" style="margin-top: var(--space-16);">
+                                <span>🔥</span>
+                                <span>7-day streak!</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="daily-challenge">
+                        <h3>Daily Challenge</h3>
+                        <div style="margin: var(--space-16) 0;">
+                            <span class="problem-difficulty difficulty-medium">Medium</span>
+                            <h4 style="margin: var(--space-8) 0;">Two Sum Problem</h4>
+                            <p>Given an array and a target sum, find two numbers that add up to the target.</p>
+                            <button class="btn btn--primary" onclick="openProblemInEditor(2)">Start Challenge</button>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="feature-grid">
+                    <div class="card feature-card" onclick="showSection('learn')">
+                        <div class="feature-icon">📊</div>
+                        <div class="card__body">
+                            <h3>Data Structures Explorer</h3>
+                            <p>Learn about arrays, linked lists, stacks, queues, trees, graphs, and more with visual examples and real-world analogies.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="card feature-card" onclick="showSection('visualize')">
+                        <div class="feature-icon">⚡</div>
+                        <div class="card__body">
+                            <h3>Algorithm Visualizer</h3>
+                            <p>Watch algorithms come to life with interactive step-by-step animations and controls.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="card feature-card" onclick="showSection('practice')">
+                        <div class="feature-icon">📈</div>
+                        <div class="card__body">
+                            <h3>Practice Zone</h3>
+                            <p>Solve coding problems with progressive difficulty levels and get instant feedback.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="card feature-card" onclick="showSection('quiz')">
+                        <div class="feature-icon">🧠</div>
+                        <div class="card__body">
+                            <h3>Quiz Mode</h3>
+                            <p>Test your knowledge with interactive quizzes covering data structures, algorithms, and complexity concepts.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="card feature-card" onclick="showSection('resources')">
+                        <div class="feature-icon">📚</div>
+                        <div class="card__body">
+                            <h3>Learning Resources</h3>
+                            <p>Follow a structured learning path and access helpful resources to master DSA concepts step by step.</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Learn Section -->
+            <section id="learn" class="section">
+                <div class="two-column-layout">
+                    <div class="sidebar">
+                        <h3>Categories</h3>
+                        <button class="category-btn active" onclick="showDataStructureCategory('linear')">Linear Structures</button>
+                        <button class="category-btn" onclick="showDataStructureCategory('nonlinear')">Non-Linear Structures</button>
+                        <button class="category-btn" onclick="showDataStructureCategory('hash')">Hash-Based Structures</button>
+                    </div>
+                    
+                    <div class="content-area">
+                        <div id="learn-main">
+                            <!-- This will be the main view with cards -->
+                        </div>
+                        <div id="learn-category-content" style="display: none;">
+                            <!-- Dynamic content will be inserted here -->
+                        </div>
+                        <div id="learn-detail-content" style="display: none;">
+                            <!-- Detail content with difficulty levels -->
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Practice Section -->
+            <section id="practice" class="section">
+                <div class="content-area">
+                    <h2>Practice Problems</h2>
+                    <p>Solve coding challenges with progressive difficulty levels</p>
+                    
+                    <div class="difficulty-selector">
+                        <button class="difficulty-btn active" onclick="filterProblems('all')">All Problems</button>
+                        <button class="difficulty-btn" onclick="filterProblems('easy')">Easy</button>
+                        <button class="difficulty-btn" onclick="filterProblems('medium')">Medium</button>
+                        <button class="difficulty-btn" onclick="filterProblems('hard')">Hard</button>
+                    </div>
+                    
+                    <div id="problems-container">
+                        <!-- Practice problems will be inserted here -->
+                    </div>
+                    
+                    <div class="code-playground" style="display: none;" id="code-playground">
+                        <div style="padding: var(--space-16); background: var(--color-bg-1);">
+                            <h4 id="problem-title">Problem Title</h4>
+                            <p id="problem-description">Problem description goes here</p>
+                        </div>
+                        <textarea class="code-editor" id="code-editor" placeholder="// Write your solution here..."></textarea>
+                        <div class="editor-controls">
+                            <button class="btn btn--sm btn--primary" onclick="runCode()">Run Code</button>
+                            <button class="btn btn--sm btn--secondary" onclick="getHint()">Hint</button>
+                            <button class="btn btn--sm btn--secondary" onclick="showSolution()">Solution</button>
+                            <button class="btn btn--sm btn--outline" onclick="closeProblem()">Close</button>
+                        </div>
+                        <div id="code-output" style="padding: var(--space-16); background: var(--color-surface); border-top: 1px solid var(--color-border); display: none;"></div>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- Visualize Section -->
+            <section id="visualize" class="section">
+                <div class="content-area">
+                    <h2>Algorithm Visualizations</h2>
+                    <p>Watch algorithms come to life with interactive step-by-step animations</p>
+                    
+                    <div class="feature-grid">
+                        <div class="card" onclick="showVisualization('bubble-sort')">
+                            <div class="card__body">
+                                <h4>Bubble Sort</h4>
+                                <p>Watch elements "bubble" to their correct positions</p>
+                            </div>
+                        </div>
+                        <div class="card" onclick="showVisualization('selection-sort')">
+                            <div class="card__body">
+                                <h4>Selection Sort</h4>
+                                <p>See how minimum elements are selected and placed</p>
+                            </div>
+                        </div>
+                        <div class="card" onclick="showVisualization('binary-search')">
+                            <div class="card__body">
+                                <h4>Binary Search</h4>
+                                <p>Divide and conquer approach to finding elements</p>
+                            </div>
+                        </div>
+                        <div class="card" onclick="showVisualization('bfs')">
+                            <div class="card__body">
+                                <h4>BFS Traversal</h4>
+                                <p>Breadth-first exploration of graphs</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="visualization-container" id="viz-container" style="display: none;">
+                        <h3 id="viz-title">Algorithm Visualization</h3>
+                        <div class="viz-controls">
+                            <button class="viz-btn" onclick="playVisualization()">▶️ Play</button>
+                            <button class="viz-btn" onclick="pauseVisualization()">⏸️ Pause</button>
+                            <button class="viz-btn" onclick="stepVisualization()">⏭️ Step</button>
+                            <button class="viz-btn" onclick="resetVisualization()">🔄 Reset</button>
+                            <input type="range" min="1" max="10" value="5" id="speed-control" onchange="setSpeed(this.value)">
+                            <label>Speed</label>
+                        </div>
+                        <div id="viz-display" style="min-height: 200px; display: flex; align-items: center; justify-content: center; color: var(--color-text-secondary);">
+                            Select an algorithm above to see its visualization
+                        </div>
+                        <div id="viz-explanation">
+                            <!-- Step-by-step explanation -->
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Profile Section -->
+            <section id="profile" class="section">
+                <div class="content-area">
+                    <h2>Your Profile &amp; Settings</h2>
+                    
+                    <div class="dashboard-grid">
+                        <div class="card">
+                            <div class="card__body">
+                                <h3>Statistics</h3>
+                                <div style="margin: var(--space-16) 0;">
+                                    <div class="flex justify-between mb-8">
+                                        <span>Problems Solved:</span>
+                                        <span><strong>23</strong></span>
+                                    </div>
+                                    <div class="flex justify-between mb-8">
+                                        <span>Quiz Average:</span>
+                                        <span><strong>85%</strong></span>
+                                    </div>
+                                    <div class="flex justify-between mb-8">
+                                        <span>Time Spent Learning:</span>
+                                        <span><strong>12.5 hours</strong></span>
+                                    </div>
+                                    <div class="flex justify-between mb-8">
+                                        <span>Current Streak:</span>
+                                        <span><strong>7 days</strong></span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="card">
+                            <div class="card__body">
+                                <h3>Learning Preferences</h3>
+                                <div style="margin: var(--space-16) 0;">
+                                    <label class="form-label">Preferred Difficulty:</label>
+                                    <select class="form-control">
+                                        <option>Beginner</option>
+                                        <option selected>Intermediate</option>
+                                        <option>Advanced</option>
+                                    </select>
+                                    
+                                    <label class="form-label" style="margin-top: var(--space-12);">Focus Areas:</label>
+                                    <div style="display: flex; flex-direction: column; gap: var(--space-4);">
+                                        <label><input type="checkbox" checked> Arrays &amp; Strings</label>
+                                        <label><input type="checkbox" checked> Trees &amp; Graphs</label>
+                                        <label><input type="checkbox"> Dynamic Programming</label>
+                                        <label><input type="checkbox"> System Design</label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="card">
+                            <div class="card__body">
+                                <h3>All Badges</h3>
+                                <div class="badge-container">
+                                    <div class="badge">🎯 First Steps</div>
+                                    <div class="badge">💡 Problem Solver</div>
+                                    <div class="badge">🔥 Streak Keeper</div>
+                                    <div class="badge" style="opacity: 0.5;">🏆 Quiz Master</div>
+                                    <div class="badge" style="opacity: 0.5;">⚡ Speed Runner</div>
+                                    <div class="badge" style="opacity: 0.5;">🧠 Algorithm Expert</div>
+                                    <div class="badge" style="opacity: 0.5;">📚 Bookworm</div>
+                                    <div class="badge" style="opacity: 0.5;">🌟 Perfectionist</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Complexity Analyzer Section (moved to resources) -->
+            <section id="complexity" class="section" style="display: none;">
+                <div class="content-area">
+                    <h2>Complexity Analyzer</h2>
+                    <p>Select data structures or algorithms to compare their time and space complexities.</p>
+                    
+                    <div style="margin: var(--space-24) 0;">
+                        <label for="complexity-select">Select items to compare:</label>
+                        <select id="complexity-select" class="form-control" onchange="updateComplexityTable()">
+                            <option value="">Choose a category...</option>
+                            <option value="data-structures">Data Structures</option>
+                            <option value="sorting">Sorting Algorithms</option>
+                            <option value="searching">Searching Algorithms</option>
+                        </select>
+                    </div>
+                    
+                    <div id="complexity-table-container">
+                        <!-- Complexity table will be inserted here -->
+                    </div>
+                    
+                    <div style="margin-top: var(--space-32);">
+                        <h3>Big O Notation Guide</h3>
+                        <div id="big-o-guide">
+                            <!-- Big O explanations -->
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Quiz Section -->
+            <section id="quiz" class="section">
+                <div class="content-area">
+                    <div id="quiz-start" style="text-align: center;">
+                        <h2>DSA Knowledge Quiz</h2>
+                        <p>Test your understanding of data structures and algorithms with 15 multiple-choice questions.</p>
+                        <button class="btn btn--primary" onclick="startQuiz()" style="margin-top: var(--space-16);">Start Quiz</button>
+                    </div>
+                    
+                    <div id="quiz-content" style="display: none;">
+                        <div class="quiz-progress">
+                            <div id="quiz-progress-bar" class="quiz-progress-bar" style="width: 0%;"></div>
+                        </div>
+                        <div id="quiz-question-container">
+                            <!-- Quiz questions will be inserted here -->
+                        </div>
+                    </div>
+                    
+                    <div id="quiz-results" style="display: none;">
+                        <!-- Quiz results will be shown here -->
+                    </div>
+                </div>
+            </section>
+
+            <!-- Resources Section -->
+            <section id="resources" class="section">
+                <div class="content-area">
+                    <h2>Learning Resources &amp; Cheat Sheets</h2>
+                    
+                    <div class="two-column-layout">
+                        <div class="sidebar">
+                            <h3>Quick Access</h3>
+                            <button class="category-btn active" onclick="showResourceCategory('roadmap')">Learning Path</button>
+                            <button class="category-btn" onclick="showResourceCategory('cheatsheets')">Cheat Sheets</button>
+                            <button class="category-btn" onclick="showResourceCategory('interview')">Interview Prep</button>
+                            <button class="category-btn" onclick="showResourceCategory('tips')">Study Tips</button>
+                            <button class="category-btn" onclick="showResourceCategory('complexity')">Complexity Guide</button>
+                        </div>
+                        
+                        <div class="content-area">
+                            <div id="resource-content">
+                                <!-- Resource content will be inserted here -->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <script>
+        // Enhanced Data for v2.0
+        const enhancedTopics = {
+            array: {
+                difficulty_levels: {
+                    beginner: "Arrays are like apartment buildings where each apartment has a number (index). You can directly go to apartment #5 without checking apartments 1-4 first. Perfect for when you need to quickly find things by their position.",
+                    intermediate: "Arrays store elements in contiguous memory locations, providing O(1) random access by index. Fixed size in most languages, with insertion/deletion being O(n) in worst case due to shifting elements.",
+                    advanced: "Arrays enable cache-friendly access patterns due to spatial locality. Consider memory alignment, cache line sizes, and SIMD operations for optimization. Trade-offs between dynamic arrays (vectors) vs static arrays."
+                },
+                practice_problems: [
+                    {
+                        difficulty: "Easy",
+                        title: "Find Maximum Element",
+                        description: "Find the largest number in an array",
+                        hint: "Keep track of the maximum value seen so far while iterating",
+                        solution_approach: "Single pass iteration comparing each element with current max",
+                        starter_code: "function findMax(arr) {\n    // Write your code here\n    \n}"
+                    },
+                    {
+                        difficulty: "Medium",
+                        title: "Rotate Array by K Positions",
+                        description: "Rotate array elements to the right by k positions",
+                        hint: "Try reversing the entire array, then reverse first k elements, then rest",
+                        solution_approach: "Three-step reversal or extra space approach",
+                        starter_code: "function rotateArray(arr, k) {\n    // Write your code here\n    \n}"
+                    },
+                    {
+                        difficulty: "Hard",
+                        title: "Maximum Subarray Sum (Kadane's Algorithm)",
+                        description: "Find the contiguous subarray with largest sum",
+                        hint: "Track current sum, reset when negative, maintain global maximum",
+                        solution_approach: "Dynamic programming with O(1) space optimization",
+                        starter_code: "function maxSubarraySum(arr) {\n    // Write your code here\n    \n}"
+                    }
+                ],
+                real_world_usage: "Image processing (pixel arrays), database row storage, game inventories, spreadsheet cells, music playlists, buffer management in streaming",
+                common_mistakes: [
+                    "Off-by-one errors when using <= instead of < in loops",
+                    "Index out of bounds when not checking array length",
+                    "Assuming arrays are dynamic when they're fixed-size",
+                    "Forgetting that insertion/deletion in middle takes O(n) time"
+                ]
+            }
+        };
+
+        // Practice Problems Data
+        const practiceProblems = [
+            {
+                id: 1,
+                title: "Find Maximum Element",
+                difficulty: "easy",
+                topic: "Arrays",
+                description: "Given an array of integers, find and return the largest element.",
+                hint: "Keep track of the maximum value as you iterate through the array.",
+                starterCode: "function findMax(arr) {\n    // Your code here\n    \n}",
+                solution: "function findMax(arr) {\n    let max = arr[0];\n    for (let i = 1; i < arr.length; i++) {\n        if (arr[i] > max) {\n            max = arr[i];\n        }\n    }\n    return max;\n}"
+            },
+            {
+                id: 2,
+                title: "Two Sum Problem",
+                difficulty: "medium",
+                topic: "Arrays",
+                description: "Given an array and a target sum, find two numbers that add up to the target.",
+                hint: "Use a hash map to store seen numbers and their indices.",
+                starterCode: "function twoSum(nums, target) {\n    // Your code here\n    \n}",
+                solution: "function twoSum(nums, target) {\n    const map = new Map();\n    for (let i = 0; i < nums.length; i++) {\n        const complement = target - nums[i];\n        if (map.has(complement)) {\n            return [map.get(complement), i];\n        }\n        map.set(nums[i], i);\n    }\n    return [];\n}"
+            },
+            {
+                id: 3,
+                title: "Valid Parentheses",
+                difficulty: "medium",
+                topic: "Stacks",
+                description: "Check if a string of parentheses is valid (properly matched and nested).",
+                hint: "Use a stack to keep track of opening brackets.",
+                starterCode: "function isValid(s) {\n    // Your code here\n    \n}",
+                solution: "function isValid(s) {\n    const stack = [];\n    const pairs = { '(': ')', '[': ']', '{': '}' };\n    \n    for (const char of s) {\n        if (pairs[char]) {\n            stack.push(char);\n        } else if (stack.length === 0 || pairs[stack.pop()] !== char) {\n            return false;\n        }\n    }\n    \n    return stack.length === 0;\n}"
+            },
+            {
+                id: 4,
+                title: "Binary Tree Traversal",
+                difficulty: "hard",
+                topic: "Trees",
+                description: "Implement inorder traversal of a binary tree.",
+                hint: "Use recursion: left subtree, root, right subtree.",
+                starterCode: "function inorderTraversal(root) {\n    // Your code here\n    \n}",
+                solution: "function inorderTraversal(root) {\n    const result = [];\n    \n    function traverse(node) {\n        if (!node) return;\n        traverse(node.left);\n        result.push(node.val);\n        traverse(node.right);\n    }\n    \n    traverse(root);\n    return result;\n}"
+            },
+            {
+                id: 5,
+                title: "Fibonacci Sequence",
+                difficulty: "easy",
+                topic: "Recursion",
+                description: "Calculate the nth Fibonacci number efficiently.",
+                hint: "Use dynamic programming to avoid repeated calculations.",
+                starterCode: "function fibonacci(n) {\n    // Your code here\n    \n}",
+                solution: "function fibonacci(n) {\n    if (n <= 1) return n;\n    let a = 0, b = 1, temp;\n    for (let i = 2; i <= n; i++) {\n        temp = a + b;\n        a = b;\n        b = temp;\n    }\n    return b;\n}"
+            }
+        ];
+
+        // Visualization Data
+        const visualizations = {
+            'bubble-sort': {
+                title: 'Bubble Sort Visualization',
+                description: 'Watch how adjacent elements are compared and swapped',
+                data: [64, 34, 25, 12, 22, 11, 90]
+            },
+            'selection-sort': {
+                title: 'Selection Sort Visualization', 
+                description: 'See how the minimum element is selected in each pass',
+                data: [64, 25, 12, 22, 11, 90, 34]
+            },
+            'binary-search': {
+                title: 'Binary Search Visualization',
+                description: 'Divide and conquer approach to finding elements',
+                data: [1, 3, 5, 7, 9, 11, 13, 15, 17, 19]
+            },
+            'bfs': {
+                title: 'BFS Traversal Visualization',
+                description: 'Level-by-level exploration of graph nodes',
+                data: null
+            }
+        };
+
+        // Gamification Data
+        const badges = [
+            { name: "First Steps", description: "Completed first topic", icon: "🎯", earned: true },
+            { name: "Problem Solver", description: "Solved 10 coding challenges", icon: "💡", earned: true },
+            { name: "Streak Keeper", description: "7-day learning streak", icon: "🔥", earned: true },
+            { name: "Quiz Master", description: "Scored 90%+ on 5 quizzes", icon: "🏆", earned: false },
+            { name: "Speed Runner", description: "Solved 3 problems in under 30 minutes", icon: "⚡", earned: false },
+            { name: "Algorithm Expert", description: "Mastered all sorting algorithms", icon: "🧠", earned: false },
+            { name: "Bookworm", description: "Read all documentation", icon: "📚", earned: false },
+            { name: "Perfectionist", description: "Perfect score on 3 quizzes", icon: "🌟", earned: false }
+        ];
+
+        // Global state for v2.0
+        let currentTheme = 'light';
+        let userProgress = {
+            dataStructures: 75,
+            algorithms: 60,
+            overall: 67,
+            streak: 7,
+            problemsSolved: 23,
+            quizAverage: 85,
+            timeSpent: 12.5
+        };
+
+        // New helper function to manage learn section views
+        function showLearnView(view) {
+            const main = document.getElementById('learn-main');
+            const category = document.getElementById('learn-category-content');
+            const detail = document.getElementById('learn-detail-content');
+
+            if (main) main.style.display = view === 'main' ? 'block' : 'none';
+            if (category) category.style.display = view === 'category' ? 'block' : 'none';
+            if (detail) detail.style.display = view === 'detail' ? 'block' : 'none';
+        }
+        
+        function populateLearnMain() {
+            const learnMain = document.getElementById('learn-main');
+            if (!learnMain) return;
+            learnMain.innerHTML = `
+                <h2>Learn Topics</h2>
+                <p>Select a category from the sidebar to start learning.</p>
+                <div class="feature-grid">
+                    <div class="card feature-card" onclick="showDataStructureCategory('linear')">
+                        <div class="card__body"><h3>Linear Structures</h3><p>Arrays, Linked Lists, Stacks, Queues.</p></div>
+                    </div>
+                    <div class="card feature-card" onclick="showDataStructureCategory('nonlinear')">
+                        <div class="card__body"><h3>Non-Linear Structures</h3><p>Trees, Graphs, Heaps.</p></div>
+                    </div>
+                    <div class="card feature-card" onclick="showDataStructureCategory('hash')">
+                        <div class="card__body"><h3>Hash-Based Structures</h3><p>Hash Tables.</p></div>
+                    </div>
+                    <div class="card feature-card" onclick="showDataStructureCategory('algorithms')">
+                        <div class="card__body"><h3>Algorithms</h3><p>Searching, Sorting, and more.</p></div>
+                    </div>
+                    <div class="card feature-card" onclick="showDataStructureCategory('fundamentals')">
+                        <div class="card__body"><h3>Fundamentals</h3><p>Big O, Complexity Analysis.</p></div>
+                    </div>
+                </div>
+            `;
+        }
+
+        // Data Structures Data
+        const dataStructures = {
+            linear: {
+                title: "Linear Data Structures",
+                items: [
+                    {
+                        name: "Array",
+                        definition: "A collection of elements stored in contiguous memory locations, accessed by index",
+                        properties: ["Fixed size", "Fast access O(1)", "Same data type elements"],
+                        useCase: "When you need fast access by index and know the size in advance",
+                        operations: "Access: O(1), Search: O(n), Insert: O(n), Delete: O(n)",
+                        realWorldAnalogy: "Like a row of mailboxes where each box has a number (index)",
+                        visual: "[0][1][2][3][4] - Each box contains one element",
+                        code: "// Array operations\nint arr[5] = {10, 20, 30, 40, 50};\nint value = arr[2]; // Access element at index 2 -> 30"
+                    },
+                    {
+                        name: "Linked List",
+                        definition: "A linear data structure where elements (nodes) are connected using pointers",
+                        properties: ["Dynamic size", "Sequential access", "Each node has data and pointer to next"],
+                        useCase: "When you need frequent insertions/deletions and don't know size beforehand",
+                        operations: "Access: O(n), Search: O(n), Insert: O(1), Delete: O(1)",
+                        realWorldAnalogy: "Like a treasure hunt where each clue points to the next location",
+                        visual: "[Data|Next] -> [Data|Next] -> [Data|NULL]",
+                        code: "// Linked List Node\nstruct Node {\n    int data;\n    Node* next;\n};"
+                    },
+                    {
+                        name: "Stack",
+                        definition: "A linear structure following Last-In-First-Out (LIFO) principle",
+                        properties: ["Elements added/removed from one end (top)", "LIFO order"],
+                        useCase: "Function calls, undo operations, expression evaluation",
+                        operations: "Push: O(1), Pop: O(1), Peek: O(1)",
+                        realWorldAnalogy: "Like a stack of plates - you can only add or remove from the top",
+                        visual: "Top -> [3]\n       [2]\n       [1] <- Bottom",
+                        code: "// Stack operations\nstack.push(10);  // Add element\nint top = stack.top();  // Get top element\nstack.pop();     // Remove top element"
+                    },
+                    {
+                        name: "Queue",
+                        definition: "A linear structure following First-In-First-Out (FIFO) principle",
+                        properties: ["Elements added at rear, removed from front", "FIFO order"],
+                        useCase: "Task scheduling, breadth-first search, printer queue",
+                        operations: "Enqueue: O(1), Dequeue: O(1), Peek: O(1)",
+                        realWorldAnalogy: "Like a line at a store - first person in line is first to be served",
+                        visual: "Front -> [1][2][3] <- Rear",
+                        code: "// Queue operations\nqueue.push(10);   // Enqueue (add to rear)\nint front = queue.front(); // Get front element\nqueue.pop();      // Dequeue (remove from front)"
+                    }
+                ]
+            },
+            nonlinear: {
+                title: "Non-Linear Data Structures",
+                items: [
+                    {
+                        name: "Binary Tree",
+                        definition: "A hierarchical structure where each node has at most two children",
+                        properties: ["Root node", "Left and right children", "Hierarchical structure"],
+                        useCase: "Hierarchical data, expression trees, binary search trees",
+                        operations: "Search: O(n), Insert: O(n), Delete: O(n), Traversal: O(n)",
+                        realWorldAnalogy: "Like a family tree where each person has at most two children",
+                        visual: "      A\n    /   \\\n   B     C\n  / \\   /\n D   E F",
+                        code: "// Binary Tree Node\nstruct TreeNode {\n    int data;\n    TreeNode* left;\n    TreeNode* right;\n};"
+                    },
+                    {
+                        name: "Binary Search Tree",
+                        definition: "A binary tree where left child < parent < right child",
+                        properties: ["Ordered structure", "Efficient searching", "In-order traversal gives sorted sequence"],
+                        useCase: "Fast searching, maintaining sorted data",
+                        operations: "Search: O(log n) average, Insert: O(log n), Delete: O(log n)",
+                        realWorldAnalogy: "Like a filing system where smaller values go left, larger values go right",
+                        visual: "      5\n    /   \\\n   3     8\n  / \\   / \\\n 1   4 6   9",
+                        code: "// BST Search\nTreeNode* search(TreeNode* root, int key) {\n    if (!root || root->data == key) return root;\n    if (key < root->data) return search(root->left, key);\n    return search(root->right, key);\n}"
+                    },
+                    {
+                        name: "Graph",
+                        definition: "A collection of vertices (nodes) connected by edges",
+                        properties: ["Can be directed/undirected", "Weighted/unweighted", "Cyclic/acyclic"],
+                        useCase: "Social networks, maps, network routing",
+                        operations: "Add vertex: O(1), Add edge: O(1), Search: O(V+E)",
+                        realWorldAnalogy: "Like a social network where people (nodes) are connected by friendships (edges)",
+                        visual: "A --- B\n|  \\  |\n|   \\ |\nC --- D",
+                        code: "// Graph representation (Adjacency List)\nvector<vector<int>> graph(n);\ngraph[u].push_back(v); // Add edge u->v"
+                    },
+                    {
+                        name: "Heap",
+                        definition: "A complete binary tree where parent is greater (max heap) or smaller (min heap) than children",
+                        properties: ["Complete binary tree", "Heap property maintained", "Efficient priority operations"],
+                        useCase: "Priority queues, heap sort, finding kth largest element",
+                        operations: "Insert: O(log n), Delete: O(log n), Get min/max: O(1)",
+                        realWorldAnalogy: "Like a company hierarchy where the boss (root) has highest priority",
+                        visual: "Max Heap:\n      9\n    /   \\\n   7     8\n  / \\   /\n 4   5 2",
+                        code: "// Max Heap operations\npriority_queue<int> maxHeap;\nmaxHeap.push(10); // Insert\nint max = maxHeap.top(); // Get maximum\nmaxHeap.pop(); // Remove maximum"
+                    }
+                ]
+            },
+            hash: {
+                title: "Hash-Based Structures",
+                items: [
+                    {
+                        name: "Hash Table",
+                        definition: "A data structure that maps keys to values using a hash function",
+                        properties: ["Fast average-case operations", "Uses hash function", "May have collisions"],
+                        useCase: "Fast lookups, caching, implementing sets and maps",
+                        operations: "Search: O(1) average, Insert: O(1) average, Delete: O(1) average",
+                        realWorldAnalogy: "Like a dictionary where you can quickly find a word's definition",
+                        visual: "Key -> Hash Function -> Index -> Value\n'John' -> hash('John') -> 3 -> 'Engineer'",
+                        code: "// Hash Table usage\nunordered_map<string, int> hashTable;\nhashTable['key'] = 42; // Insert\nint value = hashTable['key']; // Search"
+                    }
+                ]
+            }
+        };
+
+        // Algorithms Data
+        const algorithms = {
+            searching: {
+                title: "Searching Algorithms",
+                items: [
+                    {
+                        name: "Linear Search",
+                        definition: "Check each element sequentially until target is found",
+                        timeComplexity: "O(n)",
+                        spaceComplexity: "O(1)",
+                        useCase: "Small or unsorted datasets",
+                        howItWorks: "Start from first element, compare with target, move to next if not found",
+                        code: "function linearSearch(arr, target) {\n    for (let i = 0; i < arr.length; i++) {\n        if (arr[i] === target) return i;\n    }\n    return -1;\n}"
+                    },
+                    {
+                        name: "Binary Search",
+                        definition: "Divide sorted array in half repeatedly to find target",
+                        timeComplexity: "O(log n)",
+                        spaceComplexity: "O(1)",
+                        useCase: "Large sorted datasets",
+                        howItWorks: "Compare target with middle element, eliminate half of search space each time",
+                        code: "function binarySearch(arr, target) {\n    let left = 0, right = arr.length - 1;\n    while (left <= right) {\n        let mid = Math.floor((left + right) / 2);\n        if (arr[mid] === target) return mid;\n        if (arr[mid] < target) left = mid + 1;\n        else right = mid - 1;\n    }\n    return -1;\n}"
+                    }
+                ]
+            },
+            sorting: {
+                title: "Sorting Algorithms",
+                items: [
+                    {
+                        name: "Bubble Sort",
+                        definition: "Repeatedly swap adjacent elements if in wrong order",
+                        timeComplexity: "Best: O(n), Average: O(n²), Worst: O(n²)",
+                        spaceComplexity: "O(1)",
+                        useCase: "Small datasets, educational purposes",
+                        howItWorks: "Compare adjacent elements and swap if needed, repeat until no swaps",
+                        code: "function bubbleSort(arr) {\n    for (let i = 0; i < arr.length; i++) {\n        for (let j = 0; j < arr.length - i - 1; j++) {\n            if (arr[j] > arr[j + 1]) {\n                [arr[j], arr[j + 1]] = [arr[j + 1], arr[j]];\n            }\n        }\n    }\n}"
+                    },
+                    {
+                        name: "Selection Sort",
+                        definition: "Find minimum element and place it at the beginning",
+                        timeComplexity: "O(n²)",
+                        spaceComplexity: "O(1)",
+                        useCase: "Small datasets, when memory is limited",
+                        howItWorks: "Find smallest element in unsorted portion, swap with first unsorted element",
+                        code: "function selectionSort(arr) {\n    for (let i = 0; i < arr.length; i++) {\n        let minIdx = i;\n        for (let j = i + 1; j < arr.length; j++) {\n            if (arr[j] < arr[minIdx]) minIdx = j;\n        }\n        [arr[i], arr[minIdx]] = [arr[minIdx], arr[i]];\n    }\n}"
+                    },
+                    {
+                        name: "Merge Sort",
+                        definition: "Divide array into halves, sort them, then merge",
+                        timeComplexity: "O(n log n)",
+                        spaceComplexity: "O(n)",
+                        useCase: "Large datasets, stable sorting needed",
+                        howItWorks: "Recursively divide array until single elements, then merge sorted halves",
+                        code: "function mergeSort(arr) {\n    if (arr.length <= 1) return arr;\n    const mid = Math.floor(arr.length / 2);\n    const left = mergeSort(arr.slice(0, mid));\n    const right = mergeSort(arr.slice(mid));\n    return merge(left, right);\n}"
+                    },
+                    {
+                        name: "Quick Sort",
+                        definition: "Choose pivot, partition array, recursively sort partitions",
+                        timeComplexity: "Best: O(n log n), Average: O(n log n), Worst: O(n²)",
+                        spaceComplexity: "O(log n)",
+                        useCase: "General purpose sorting, large datasets",
+                        howItWorks: "Pick pivot, partition around it, recursively sort sub-arrays",
+                        code: "function quickSort(arr, low = 0, high = arr.length - 1) {\n    if (low < high) {\n        const pi = partition(arr, low, high);\n        quickSort(arr, low, pi - 1);\n        quickSort(arr, pi + 1, high);\n    }\n}"
+                    }
+                ]
+            },
+            graph: {
+                title: "Graph Algorithms",
+                items: [
+                    {
+                        name: "Breadth-First Search (BFS)",
+                        definition: "Explore all neighbors at current depth before moving deeper",
+                        timeComplexity: "O(V + E)",
+                        spaceComplexity: "O(V)",
+                        useCase: "Shortest path in unweighted graph, level-order traversal",
+                        howItWorks: "Use queue to visit nodes level by level",
+                        code: "function BFS(graph, start) {\n    const visited = new Set();\n    const queue = [start];\n    visited.add(start);\n    \n    while (queue.length > 0) {\n        const node = queue.shift();\n        console.log(node);\n        \n        for (const neighbor of graph[node]) {\n            if (!visited.has(neighbor)) {\n                visited.add(neighbor);\n                queue.push(neighbor);\n            }\n        }\n    }\n}"
+                    },
+                    {
+                        name: "Depth-First Search (DFS)",
+                        definition: "Explore as far as possible along each branch before backtracking",
+                        timeComplexity: "O(V + E)",
+                        spaceComplexity: "O(V)",
+                        useCase: "Cycle detection, topological sorting, maze solving",
+                        howItWorks: "Use stack (or recursion) to go deep before exploring siblings",
+                        code: "function DFS(graph, node, visited = new Set()) {\n    visited.add(node);\n    console.log(node);\n    \n    for (const neighbor of graph[node]) {\n        if (!visited.has(neighbor)) {\n            DFS(graph, neighbor, visited);\n        }\n    }\n}"
+                    }
+                ]
+            },
+            advanced: {
+                title: "Advanced Topics",
+                items: [
+                    {
+                        name: "Dynamic Programming",
+                        definition: "Solve complex problems by breaking into simpler subproblems and storing results",
+                        timeComplexity: "Varies by problem",
+                        spaceComplexity: "O(n) to O(n²) typically",
+                        useCase: "Optimization problems with overlapping subproblems",
+                        howItWorks: "Either memoization (top-down) or tabulation (bottom-up) approach",
+                        code: "// Fibonacci with memoization\nfunction fib(n, memo = {}) {\n    if (n in memo) return memo[n];\n    if (n <= 2) return 1;\n    memo[n] = fib(n - 1, memo) + fib(n - 2, memo);\n    return memo[n];\n}"
+                    },
+                    {
+                        name: "Greedy Algorithm",
+                        definition: "Make locally optimal choice at each step hoping to find global optimum",
+                        timeComplexity: "Varies by problem",
+                        spaceComplexity: "Usually O(1)",
+                        useCase: "Activity selection, Huffman coding, fractional knapsack",
+                        howItWorks: "Choose best option at current step without reconsidering",
+                        code: "// Activity Selection (greedy)\nfunction activitySelection(activities) {\n    activities.sort((a, b) => a.end - b.end);\n    const selected = [activities[0]];\n    let lastEnd = activities[0].end;\n    \n    for (let i = 1; i < activities.length; i++) {\n        if (activities[i].start >= lastEnd) {\n            selected.push(activities[i]);\n            lastEnd = activities[i].end;\n        }\n    }\n    return selected;\n}"
+                    }
+                ]
+            }
+        };
+
+        // Complexity data for comparison table
+        const complexityData = {
+            'data-structures': [
+                { name: 'Array', access: 'O(1)', search: 'O(n)', insert: 'O(n)', delete: 'O(n)', space: 'O(n)' },
+                { name: 'Linked List', access: 'O(n)', search: 'O(n)', insert: 'O(1)', delete: 'O(1)', space: 'O(n)' },
+                { name: 'Stack', access: 'O(n)', search: 'O(n)', insert: 'O(1)', delete: 'O(1)', space: 'O(n)' },
+                { name: 'Queue', access: 'O(n)', search: 'O(n)', insert: 'O(1)', delete: 'O(1)', space: 'O(n)' },
+                { name: 'Binary Search Tree', access: 'O(log n)', search: 'O(log n)', insert: 'O(log n)', delete: 'O(log n)', space: 'O(n)' },
+                { name: 'Hash Table', access: 'N/A', search: 'O(1)*', insert: 'O(1)*', delete: 'O(1)*', space: 'O(n)' }
+            ],
+            'sorting': [
+                { name: 'Bubble Sort', best: 'O(n)', average: 'O(n²)', worst: 'O(n²)', space: 'O(1)' },
+                { name: 'Selection Sort', best: 'O(n²)', average: 'O(n²)', worst: 'O(n²)', space: 'O(1)' },
+                { name: 'Insertion Sort', best: 'O(n)', average: 'O(n²)', worst: 'O(n²)', space: 'O(1)' },
+                { name: 'Merge Sort', best: 'O(n log n)', average: 'O(n log n)', worst: 'O(n log n)', space: 'O(n)' },
+                { name: 'Quick Sort', best: 'O(n log n)', average: 'O(n log n)', worst: 'O(n²)', space: 'O(log n)' }
+            ],
+            'searching': [
+                { name: 'Linear Search', best: 'O(1)', average: 'O(n)', worst: 'O(n)', space: 'O(1)' },
+                { name: 'Binary Search', best: 'O(1)', average: 'O(log n)', worst: 'O(log n)', space: 'O(1)' }
+            ]
+        };
+
+        // Big O notation explanations
+        const bigONotations = [
+            {
+                notation: "O(1)",
+                name: "Constant Time",
+                description: "Execution time doesn't change with input size",
+                example: "Array access by index"
+            },
+            {
+                notation: "O(log n)",
+                name: "Logarithmic Time",
+                description: "Execution time grows logarithmically",
+                example: "Binary search"
+            },
+            {
+                notation: "O(n)",
+                name: "Linear Time",
+                description: "Execution time grows linearly with input",
+                example: "Linear search"
+            },
+            {
+                notation: "O(n log n)",
+                name: "Linearithmic Time",
+                description: "Better than quadratic, worse than linear",
+                example: "Merge sort, quick sort"
+            },
+            {
+                notation: "O(n²)",
+                name: "Quadratic Time",
+                description: "Execution time grows quadratically",
+                example: "Bubble sort, nested loops"
+            },
+            {
+                notation: "O(2^n)",
+                name: "Exponential Time",
+                description: "Execution time doubles with each input addition",
+                example: "Recursive Fibonacci without memoization"
+            }
+        ];
+
+        // Quiz questions
+        const quizQuestions = [
+            {
+                question: "Which data structure follows LIFO principle?",
+                options: ["Queue", "Stack", "Array", "Linked List"],
+                correct: 1
+            },
+            {
+                question: "What is the time complexity of binary search?",
+                options: ["O(n)", "O(log n)", "O(n²)", "O(1)"],
+                correct: 1
+            },
+            {
+                question: "Which sorting algorithm has O(n log n) average time complexity?",
+                options: ["Bubble Sort", "Selection Sort", "Merge Sort", "Insertion Sort"],
+                correct: 2
+            },
+            {
+                question: "In a tree, a node with no children is called?",
+                options: ["Root", "Parent", "Leaf", "Branch"],
+                correct: 2
+            },
+            {
+                question: "Which data structure is best for implementing a priority queue?",
+                options: ["Array", "Linked List", "Stack", "Heap"],
+                correct: 3
+            },
+            {
+                question: "What does FIFO stand for?",
+                options: ["First In First Out", "Fast In Fast Out", "Final In Final Out", "Fixed In Fixed Out"],
+                correct: 0
+            },
+            {
+                question: "Which algorithm uses divide and conquer approach?",
+                options: ["Linear Search", "Bubble Sort", "Merge Sort", "Selection Sort"],
+                correct: 2
+            },
+            {
+                question: "What is the space complexity of bubble sort?",
+                options: ["O(1)", "O(n)", "O(log n)", "O(n²)"],
+                correct: 0
+            },
+            {
+                question: "Which data structure allows insertion and deletion at both ends?",
+                options: ["Stack", "Queue", "Deque", "Array"],
+                correct: 2
+            },
+            {
+                question: "BFS uses which data structure internally?",
+                options: ["Stack", "Queue", "Tree", "Heap"],
+                correct: 1
+            },
+            {
+                question: "What is the best case time complexity of insertion sort?",
+                options: ["O(n)", "O(log n)", "O(n²)", "O(n log n)"],
+                correct: 0
+            },
+            {
+                question: "Which tree property ensures left child < parent < right child?",
+                options: ["Binary Tree", "Binary Search Tree", "AVL Tree", "Heap"],
+                correct: 1
+            },
+            {
+                question: "Dijkstra's algorithm finds?",
+                options: ["Minimum spanning tree", "Shortest path", "Longest path", "Cycle in graph"],
+                correct: 1
+            },
+            {
+                question: "Which data structure is best for undo operations?",
+                options: ["Queue", "Array", "Stack", "Graph"],
+                correct: 2
+            },
+            {
+                question: "Dynamic programming is useful for?",
+                options: ["Simple iterations", "Problems with overlapping subproblems", "Random access", "Constant time operations"],
+                correct: 1
+            }
+        ];
+
+        // Learning roadmap
+        const learningRoadmap = [
+            { step: 1, topic: "Arrays & Basic Operations", description: "Start with the simplest data structure" },
+            { step: 2, topic: "Time & Space Complexity", description: "Learn to analyze algorithm efficiency" },
+            { step: 3, topic: "Searching Algorithms", description: "Linear and Binary Search" },
+            { step: 4, topic: "Sorting Algorithms", description: "Bubble, Selection, Insertion, Merge, Quick Sort" },
+            { step: 5, topic: "Linked Lists", description: "Single, Double, and Circular linked lists" },
+            { step: 6, topic: "Stacks & Queues", description: "LIFO and FIFO structures" },
+            { step: 7, topic: "Recursion", description: "Functions calling themselves" },
+            { step: 8, topic: "Trees", description: "Binary Trees, BST, Tree Traversals" },
+            { step: 9, topic: "Graphs", description: "Graph representation and traversal (BFS, DFS)" },
+            { step: 10, topic: "Hashing", description: "Hash tables and hash functions" },
+            { step: 11, topic: "Dynamic Programming", description: "Memoization and tabulation techniques" },
+            { step: 12, topic: "Greedy Algorithms", description: "Making locally optimal choices" }
+        ];
+
+        // Global variables for enhanced features
+        let currentQuizQuestion = 0;
+        let quizScore = 0;
+        let userAnswers = [];
+        let shuffledQuestions = [];
+        let currentProblem = null;
+        let visualizationState = {
+            current: null,
+            playing: false,
+            step: 0,
+            speed: 5,
+            data: [],
+            comparing: [],
+            sorted: []
+        };
+
+        // Enhanced Navigation functions for v2.0
+        function showSection(sectionId) {
+            // Hide all sections
+            document.querySelectorAll('main > section').forEach(section => {
+                section.style.display = 'none';
+            });
+            
+            // Show selected section
+            document.getElementById(sectionId).style.display = 'block';
+
+            // If we are going to the learn section, ensure the main view is populated and shown.
+            if (sectionId === 'learn') {
+                // Populate the learn landing content (cards) if the helper exists, then show it.
+                if (typeof populateLearnMain === 'function') {
+                    try { populateLearnMain(); } catch (e) { console.error('populateLearnMain error:', e); }
+                }
+                showLearnView('main');
+            }
+            
+            // Update active nav link
+            document.querySelectorAll('.nav-btn').forEach(link => {
+                link.classList.remove('active');
+                if (link.getAttribute('onclick').includes(`'${sectionId}'`)) {
+                    link.classList.add('active');
+                }
+            });
+            
+            // Initialize section-specific content
+            try {
+                if (sectionId === 'practice') {
+                    initPracticeSection();
+                } else if (sectionId === 'resources') {
+                    initResourcesSection();
+                }
+            } catch (error) {
+                console.error('Error initializing section:', sectionId, error);
+            }
+        }
+
+        // New helper function to manage learn section views
+        function showLearnView(view) {
+            const main = document.getElementById('learn-main');
+            const category = document.getElementById('learn-category-content');
+            const detail = document.getElementById('learn-detail-content');
+
+            if (main) main.style.display = view === 'main' ? 'block' : 'none';
+            if (category) category.style.display = view === 'category' ? 'block' : 'none';
+            if (detail) detail.style.display = view === 'detail' ? 'block' : 'none';
+        }
+
+        // Theme Toggle Function
+        function toggleTheme() {
+            currentTheme = currentTheme === 'light' ? 'dark' : 'light';
+            document.documentElement.setAttribute('data-color-scheme', currentTheme);
+            
+            const themeToggle = document.querySelector('.theme-toggle');
+            themeToggle.textContent = currentTheme === 'light' ? '🌙' : '☀️';
+            
+            // Add bounce animation
+            themeToggle.classList.add('bounce');
+            setTimeout(() => themeToggle.classList.remove('bounce'), 600);
+        }
+
+        // Enhanced Learn Section Functions
+        function showLearnCategory(category, evt) {
+            // Update sidebar
+            const categoryButtons = document.querySelectorAll('#learn .category-btn');
+            categoryButtons.forEach(btn => btn.classList.remove('active'));
+            // Prefer explicit event target, otherwise try to find the matching button by onclick attribute
+            const targetElement = (evt && evt.target) || document.querySelector(`#learn .category-btn[onclick*="${category}"]`);
+            if (targetElement && targetElement.classList) targetElement.classList.add('active');
+            
+            showLearnView('category');
+            
+            let content = '';
+            
+            if (category === 'linear') {
+                content = `
+                    <h2>Data Structures</h2>
+                    <p>Learn fundamental data structures with multiple difficulty levels</p>
+                    <div class="items-grid">
+                        <div class="card item-card" onclick="showTopicDetail('array', 'linear')">
+                            <div class="card__body">
+                                <h4>Arrays</h4>
+                                <p>Learn about arrays with beginner-friendly analogies and advanced optimizations</p>
+                                <div class="badge-container">
+                                    <span class="badge">3 Difficulty Levels</span>
+                                    <span class="badge">3 Practice Problems</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card item-card" onclick="showDataStructureDetail('linear', 'Linked List')">
+                            <div class="card__body">
+                                <h4>Linked Lists</h4>
+                                <p>A linear data structure where elements are connected using pointers</p>
+                                <p><strong>Use Case:</strong> When you need frequent insertions/deletions</p>
+                            </div>
+                        </div>
+                        <div class="card item-card" onclick="showDataStructureDetail('linear', 'Stack')">
+                            <div class="card__body">
+                                <h4>Stacks</h4>
+                                <p>A linear structure following Last-In-First-Out (LIFO) principle</p>
+                                <p><strong>Use Case:</strong> Function calls, undo operations</p>
+                            </div>
+                        </div>
+                        <div class="card item-card" onclick="showDataStructureDetail('linear', 'Queue')">
+                            <div class="card__body">
+                                <h4>Queues</h4>
+                                <p>A linear structure following First-In-First-Out (FIFO) principle</p>
+                                <p><strong>Use Case:</strong> Task scheduling, BFS traversal</p>
+                            </div>
+                        </div>
+                    </div>
+                `;
+            } else if (category === 'nonlinear') {
+                content = `
+                    <h2>Non-Linear Data Structures</h2>
+                    <p>Hierarchical and complex data organization structures</p>
+                    <div class="items-grid">
+                        <div class="card item-card" onclick="showDataStructureDetail('nonlinear', 'Binary Tree')">
+                            <div class="card__body">
+                                <h4>Binary Trees</h4>
+                                <p>A hierarchical structure where each node has at most two children</p>
+                                <p><strong>Use Case:</strong> Hierarchical data, expression trees</p>
+                            </div>
+                        </div>
+                        <div class="card item-card" onclick="showDataStructureDetail('nonlinear', 'Graph')">
+                            <div class="card__body">
+                                <h4>Graphs</h4>
+                                <p>A collection of vertices connected by edges</p>
+                                <p><strong>Use Case:</strong> Social networks, maps, network routing</p>
+                            </div>
+                        </div>
+                        <div class="card item-card" onclick="showDataStructureDetail('nonlinear', 'Heap')">
+                            <div class="card__body">
+                                <h4>Heaps</h4>
+                                <p>A complete binary tree with heap property maintained</p>
+                                <p><strong>Use Case:</strong> Priority queues, heap sort</p>
+                            </div>
+                        </div>
+                    </div>
+                `;
+            } else if (category === 'hash') {
+                content = `
+                    <h2>Hash-Based Data Structures</h2>
+                    <p>Fast lookup and retrieval using hash functions</p>
+                    <div class="items-grid">
+                        <div class="card item-card" onclick="showDataStructureDetail('hash', 'Hash Table')">
+                            <div class="card__body">
+                                <h4>Hash Tables</h4>
+                                <p>A data structure that maps keys to values using hash functions</p>
+                                <p><strong>Use Case:</strong> Fast lookups, caching, implementing sets</p>
+                            </div>
+                        </div>
+                    </div>
+                `;
+            } else if (category === 'algorithms') {
+                content = `
+                    <h2>Algorithms</h2>
+                    <p>Master essential algorithms with step-by-step explanations</p>
+                    <div class="items-grid">
+                        <div class="card item-card" onclick="showAlgorithmDetail('searching', 'Linear Search')">
+                            <div class="card__body">
+                                <h4>Linear Search</h4>
+                                <p>Check each element sequentially until target is found</p>
+                                <p><strong>Time Complexity:</strong> O(n)</p>
+                            </div>
+                        </div>
+                        <div class="card item-card" onclick="showAlgorithmDetail('sorting', 'Bubble Sort')">
+                            <div class="card__body">
+                                <h4>Bubble Sort</h4>
+                                <p>Repeatedly swap adjacent elements if in wrong order</p>
+                                <p><strong>Time Complexity:</strong> O(n²)</p>
+                            </div>
+                        </div>
+                    </div>
+                `;
+            } else if (category === 'fundamentals') {
+                content = `
+                    <h2>Fundamentals</h2>
+                    <p>Essential concepts for understanding algorithms and data structures</p>
+                    <div class="items-grid">
+                        <div class="card item-card" onclick="showComplexityAnalysis()">
+                            <div class="card__body">
+                                <h4>Big O Analysis</h4>
+                                <p>Learn to analyze time and space complexity</p>
+                            </div>
+                        </div>
+                        <div class="card item-card">
+                            <div class="card__body">
+                                <h4>Problem Solving Techniques</h4>
+                                <p>Systematic approaches to tackling coding problems</p>
+                            </div>
+                        </div>
+                        <div class="card item-card">
+                            <div class="card__body">
+                                <h4>Code Quality &amp; Testing</h4>
+                                <p>Writing clean, maintainable, and testable code</p>
+                            </div>
+                        </div>
+                    </div>
+                `;
+            }
+            
+            if (document.getElementById('learn-category-content')) {
+                document.getElementById('learn-category-content').innerHTML = content;
+            }
+        }
+
+        // Backwards-compatible wrapper used by many inline handlers
+        function showDataStructureCategory(category) {
+            // Call the main showLearnCategory flow without relying on a DOM event
+            document.getElementById('learn-detail-content').style.display = 'none';
+            document.getElementById('learn-category-content').style.display = 'block';
+            showLearnCategory(category);
+        }
+
+        // Enhanced Topic Detail with Difficulty Levels
+        function showTopicDetail(topic) {
+            const topicData = enhancedTopics[topic];
+            if (!topicData) return;
+            
+            document.getElementById('learn-category-content').style.display = 'none';
+            document.getElementById('learn-detail-content').style.display = 'block';
+            
+            document.getElementById('learn-detail-content').innerHTML = `
+                <button class="back-btn" onclick="showDataStructureCategory('linear')">
+                    ← Back to Data Structures
+                </button>
+                
+                <div class="item-detail fade-in">
+                    <h2>${topic.charAt(0).toUpperCase() + topic.slice(1)}s</h2>
+                    
+                    <div class="difficulty-selector">
+                        <button class="difficulty-btn active" onclick="showDifficulty('${topic}', 'beginner')">Beginner</button>
+                        <button class="difficulty-btn" onclick="showDifficulty('${topic}', 'intermediate')">Intermediate</button>
+                        <button class="difficulty-btn" onclick="showDifficulty('${topic}', 'advanced')">Advanced</button>
+                    </div>
+                    
+                    <div id="difficulty-content">
+                        <div class="detail-section">
+                            <h4>Beginner Level</h4>
+                            <p>${topicData.difficulty_levels.beginner}</p>
+                        </div>
+                    </div>
+                    
+                    <div class="detail-section">
+                        <h4>Practice Problems</h4>
+                        <div class="practice-problem">
+                            <div class="flex justify-between items-center mb-8">
+                                <h5>Find Maximum Element</h5>
+                                <span class="problem-difficulty difficulty-easy">Easy</span>
+                            </div>
+                            <p>Find the largest number in an array</p>
+                            <button class="btn btn--sm btn--primary" onclick="openProblemInEditor(1)">Solve Problem</button>
+                        </div>
+                        <div class="practice-problem">
+                            <div class="flex justify-between items-center mb-8">
+                                <h5>Rotate Array by K Positions</h5>
+                                <span class="problem-difficulty difficulty-medium">Medium</span>
+                            </div>
+                            <p>Rotate array elements to the right by k positions</p>
+                            <button class="btn btn--sm btn--primary" onclick="openProblemInEditor(2)">Solve Problem</button>
+                        </div>
+                    </div>
+                    
+                    <div class="detail-section">
+                        <h4>Real-World Applications</h4>
+                        <p>${topicData.real_world_usage}</p>
+                    </div>
+                    
+                    <div class="detail-section">
+                        <h4>Common Mistakes to Avoid</h4>
+                        <ul>
+                            <li>Off-by-one errors when using <= instead of < in loops</li>
+                            <li>Index out of bounds when not checking array length</li>
+                            <li>Assuming arrays are dynamic when they're fixed-size</li>
+                            <li>Forgetting that insertion/deletion in middle takes O(n) time</li>
+                        </ul>
+                    </div>
+                </div>
+            `;
+        }
+
+        // Show Different Difficulty Levels
+        function showDifficulty(topic, level) {
+            const buttons = document.querySelectorAll('.difficulty-btn');
+            buttons.forEach(btn => btn.classList.remove('active'));
+            if (event && event.target) {
+                event.target.classList.add('active');
+            } else {
+                const activeBtn = document.querySelector(`[onclick="showDifficulty('${topic}', '${level}')"]`);
+                if (activeBtn) activeBtn.classList.add('active');
+            }
+            
+            const topicData = enhancedTopics[topic];
+            const content = topicData.difficulty_levels[level];
+            
+            document.getElementById('difficulty-content').innerHTML = `
+                <div class="detail-section slide-in">
+                    <h4>${level.charAt(0).toUpperCase() + level.slice(1)} Level</h4>
+                    <p>${content}</p>
+                </div>
+            `;
+        }
+
+        function showDataStructureDetail(category, itemName) {
+            const item = dataStructures[category].items.find(i => i.name === itemName);
+            
+            document.getElementById('learn-category-content').style.display = 'none';
+            document.getElementById('learn-detail-content').style.display = 'block';
+            
+            document.getElementById('learn-detail-content').innerHTML = `
+                <button class="back-btn" onclick="showDataStructureCategory('linear')">
+                    ← Back to Data Structures
+                </button>
+                
+                <div class="item-detail fade-in">
+                    <h2>${item.name}</h2>
+                    
+                    <div class="detail-section">
+                        <h4>Definition</h4>
+                        <p>${item.definition}</p>
+                    </div>
+                    
+                    <div class="detail-section">
+                        <h4>Key Properties</h4>
+                        <ul>
+                            ${item.properties.map(prop => `<li>${prop}</li>`).join('')}
+                        </ul>
+                    </div>
+                    
+                    <div class="detail-section">
+                        <h4>Real-World Analogy</h4>
+                        <p>${item.realWorldAnalogy}</p>
+                    </div>
+                    
+                    <div class="detail-section">
+                        <h4>Visual Representation</h4>
+                        <div class="code-block">${item.visual}</div>
+                    </div>
+                    
+                    <div class="detail-section">
+                        <h4>Time Complexity</h4>
+                        <p>${item.operations}</p>
+                    </div>
+                    
+                    <div class="detail-section">
+                        <h4>When to Use</h4>
+                        <p>${item.useCase}</p>
+                    </div>
+                    
+                    <div class="detail-section">
+                        <h4>Code Example</h4>
+                        <div class="code-block">${item.code}</div>
+                    </div>
+                </div>
+            `;
+        }
+
+        // Practice Section Functions
+        function initPracticeSection() {
+            displayProblems('all');
+        }
+
+        function filterProblems(difficulty) {
+            const buttons = document.querySelectorAll('.difficulty-btn');
+            buttons.forEach(btn => btn.classList.remove('active'));
+            if (event && event.target) {
+                event.target.classList.add('active');
+            } else {
+                const activeBtn = document.querySelector(`[onclick="filterProblems('${difficulty}')"]`);
+                if (activeBtn) activeBtn.classList.add('active');
+            }
+            
+            displayProblems(difficulty);
+        }
+
+        function displayProblems(filter) {
+            let filtered = practiceProblems;
+            if (filter !== 'all') {
+                filtered = practiceProblems.filter(p => p.difficulty === filter);
+            }
+            
+            const container = document.getElementById('problems-container');
+            let htmlContent = '';
+            for (let i = 0; i < filtered.length; i++) {
+                const problem = filtered[i];
+                htmlContent += '<div class="practice-problem">';
+                htmlContent += '<div class="flex justify-between items-center mb-8">';
+                htmlContent += '<h4>' + problem.title + '</h4>';
+                htmlContent += '<span class="problem-difficulty difficulty-' + problem.difficulty + '">' + problem.difficulty + '</span>';
+                htmlContent += '</div>';
+                htmlContent += '<p><strong>Topic:</strong> ' + problem.topic + '</p>';
+                htmlContent += '<p>' + problem.description + '</p>';
+                htmlContent += '<button class="btn btn--primary" onclick="openProblemInEditor(' + problem.id + ')">Solve Problem</button>';
+                htmlContent += '</div>';
+            }
+            container.innerHTML = htmlContent;
+        }
+
+        function openProblemInEditor(problemId) {
+            currentProblem = practiceProblems.find(p => p.id === problemId);
+            if (!currentProblem) return;
+            
+            document.getElementById('problem-title').textContent = currentProblem.title;
+            document.getElementById('problem-description').textContent = currentProblem.description;
+            document.getElementById('code-editor').value = currentProblem.starterCode;
+            document.getElementById('code-playground').style.display = 'block';
+            document.getElementById('code-output').style.display = 'none';
+            
+            // Smooth scroll to editor
+            document.getElementById('code-playground').scrollIntoView({ behavior: 'smooth' });
+        }
+
+        function runCode() {
+            try {
+                const code = document.getElementById('code-editor').value;
+                const output = document.getElementById('code-output');
+                
+                if (!code.trim()) {
+                    output.innerHTML = `
+                        <div style="color: var(--color-warning);">
+                            <strong>⚠ Warning:</strong> Please write some code first!
+                        </div>
+                    `;
+                    output.style.display = 'block';
+                    return;
+                }
+                
+                // Simple code execution simulation
+                output.innerHTML = `
+                    <div style="color: var(--color-success);">
+                        <strong>✓ Code executed successfully!</strong><br>
+                        <em>Note: This is a simulation. In a real environment, your code would be tested against multiple test cases.</em><br><br>
+                        <strong>Your code:</strong>
+                        <pre style="background: var(--color-bg-1); padding: var(--space-8); border-radius: var(--radius-sm); margin-top: var(--space-8);">${code}</pre>
+                    </div>
+                `;
+                output.style.display = 'block';
+            } catch (error) {
+                const output = document.getElementById('code-output');
+                if (output) {
+                    output.innerHTML = `
+                        <div style="color: var(--color-error);">
+                            <strong>✗ Error:</strong> ${error.message}
+                        </div>
+                    `;
+                    output.style.display = 'block';
+                }
+                console.error('Error running code:', error);
+            }
+        }
+
+        function getHint() {
+            if (!currentProblem) return;
+            
+            const output = document.getElementById('code-output');
+            output.innerHTML = `
+                <div style="color: var(--color-info);">
+                    <strong>💡 Hint:</strong> ${currentProblem.hint}
+                </div>
+            `;
+            output.style.display = 'block';
+        }
+
+        function showSolution() {
+            if (!currentProblem) return;
+            
+            const output = document.getElementById('code-output');
+            output.innerHTML = `
+                <div style="color: var(--color-warning);">
+                    <strong>📝 Solution:</strong><br>
+                    <pre style="background: var(--color-bg-1); padding: var(--space-12); border-radius: var(--radius-base); margin-top: var(--space-8); overflow-x: auto;">${currentProblem.solution}</pre>
+                </div>
+            `;
+            output.style.display = 'block';
+        }
+
+        function closeProblem() {
+            document.getElementById('code-playground').style.display = 'none';
+            currentProblem = null;
+        }
+
+        function showAlgorithmDetail(category, itemName) {
+            const item = algorithms[category].items.find(i => i.name === itemName);
+            
+            document.getElementById('learn-category-content').style.display = 'none';
+            document.getElementById('learn-detail-content').style.display = 'block';
+            
+            document.getElementById('learn-detail-content').innerHTML = `
+                <button class="back-btn" onclick="showLearnCategory('algorithms')">
+                    ← Back to Algorithms
+                </button>
+                
+                <div class="item-detail fade-in">
+                    <h2>${item.name}</h2>
+                    
+                    <div class="detail-section">
+                        <h4>Definition</h4>
+                        <p>${item.definition}</p>
+                    </div>
+                    
+                    <div class="detail-section">
+                        <h4>How It Works</h4>
+                        <p>${item.howItWorks}</p>
+                    </div>
+                    
+                    <div class="detail-section">
+                        <h4>Time Complexity</h4>
+                        <p>${item.timeComplexity}</p>
+                    </div>
+                    
+                    <div class="detail-section">
+                        <h4>Space Complexity</h4>
+                        <p>${item.spaceComplexity}</p>
+                    </div>
+                    
+                    <div class="detail-section">
+                        <h4>When to Use</h4>
+                        <p>${item.useCase}</p>
+                    </div>
+                    
+                    <div class="detail-section">
+                        <h4>Implementation</h4>
+                        <div class="code-block">${item.code}</div>
+                    </div>
+                    
+                    <div class="detail-section">
+                        <h4>Visualization</h4>
+                        <button class="btn btn--primary" onclick="showVisualization('${itemName.toLowerCase().replace(' ', '-')}')">
+                            🎥 Watch Animation
+                        </button>
+                    </div>
+                </div>
+            `;
+        }
+
+        // Visualization Functions
+        function showVisualization(type) {
+            const viz = visualizations[type];
+            if (!viz) return;
+            
+            visualizationState.current = type;
+            visualizationState.step = 0;
+            visualizationState.playing = false;
+            
+            document.getElementById('viz-container').style.display = 'block';
+            document.getElementById('viz-title').textContent = viz.title;
+            
+            // Initialize visualization based on type
+            if (type.includes('sort')) {
+                initSortingVisualization(type, viz.data);
+            } else if (type === 'binary-search') {
+                initBinarySearchVisualization(viz.data);
+            } else if (type === 'bfs') {
+                initBFSVisualization();
+            }
+            
+            // Scroll to visualization
+            document.getElementById('viz-container').scrollIntoView({ behavior: 'smooth' });
+        }
+
+        function initSortingVisualization(type, data) {
+            visualizationState.data = [...data];
+            visualizationState.comparing = [];
+            visualizationState.sorted = [];
+            
+            updateSortingDisplay();
+            
+            document.getElementById('viz-explanation').innerHTML = `
+                <div style="margin-top: var(--space-16); padding: var(--space-16); background: var(--color-bg-1); border-radius: var(--radius-base);">
+                    <p><strong>How it works:</strong> ${visualizations[type].description}</p>
+                    <p><strong>Current step:</strong> <span id="step-description">Ready to start</span></p>
+                </div>
+            `;
+        }
+
+        function initBinarySearchVisualization(data) {
+            visualizationState.data = [...data];
+            visualizationState.target = data[Math.floor(Math.random() * data.length)];
+            visualizationState.left = 0;
+            visualizationState.right = data.length - 1;
+            visualizationState.mid = -1;
+            
+            updateBinarySearchDisplay();
+        }
+
+        function initBFSVisualization() {
+            // Simple graph for BFS demo
+            const graph = {
+                'A': ['B', 'C'],
+                'B': ['A', 'D', 'E'],
+                'C': ['A', 'F'],
+                'D': ['B'],
+                'E': ['B', 'F'],
+                'F': ['C', 'E']
+            };
+            
+            visualizationState.graph = graph;
+            visualizationState.visited = [];
+            visualizationState.queue = ['A'];
+            visualizationState.current = 'A';
+            
+            updateBFSDisplay();
+        }
+
+        function updateSortingDisplay() {
+            const { data, comparing, sorted } = visualizationState;
+            
+            document.getElementById('viz-display').innerHTML = `
+                <div class="sorting-bars">
+                    ${data.map((value, index) => {
+                        let className = 'bar';
+                        if (comparing.includes(index)) className += ' comparing';
+                        if (sorted.includes(index)) className += ' sorted';
+                        
+                        return `<div class="${className}" style="height: ${value * 2}px;">${value}</div>`;
+                    }).join('')}
+                </div>
+            `;
+        }
+
+        // Additional utility functions for enhanced features
+        function bookmarkTopic(topicName) {
+            // Simulate bookmarking functionality
+            const notification = document.createElement('div');
+            notification.style.cssText = 'position: fixed; top: 20px; right: 20px; background: var(--color-info); color: var(--color-btn-primary-text); padding: var(--space-12) var(--space-16); border-radius: var(--radius-base); box-shadow: var(--shadow-md); z-index: 1000; animation: slideIn 0.3s ease;';
+            notification.textContent = '🔖 Bookmarked: ' + topicName;
+            
+            document.body.appendChild(notification);
+            setTimeout(function() { notification.remove(); }, 2000);
+        }
+        
+        function addNote(topicName) {
+            // Simulate note-taking functionality
+            const note = prompt('Add a note for ' + topicName + ':');
+            if (note) {
+                const notification = document.createElement('div');
+                notification.style.cssText = 'position: fixed; top: 20px; right: 20px; background: var(--color-warning); color: var(--color-btn-primary-text); padding: var(--space-12) var(--space-16); border-radius: var(--radius-base); box-shadow: var(--shadow-md); z-index: 1000; animation: slideIn 0.3s ease;';
+                notification.textContent = '📝 Note saved for ' + topicName;
+                
+                document.body.appendChild(notification);
+                setTimeout(function() { notification.remove(); }, 2000);
+            }
+        }
+        
+        function exportProgress() {
+            // Simulate progress export
+            const data = {
+                progress: userProgress,
+                badges: badges.filter(function(b) { return b.earned; }),
+                timestamp: new Date().toISOString()
+            };
+            
+            const blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' });
+            const url = URL.createObjectURL(blob);
+            
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = 'dsa-learning-progress.json';
+            a.click();
+            
+            URL.revokeObjectURL(url);
+        }
+        
+        // Accessibility enhancements
+        document.addEventListener('keydown', function(e) {
+            // Add keyboard shortcuts
+            if (e.ctrlKey || e.metaKey) {
+                switch(e.key) {
+                    case '1':
+                        e.preventDefault();
+                        showSection('dashboard');
+                        break;
+                    case '2':
+                        e.preventDefault();
+                        showSection('learn');
+                        break;
+                    case '3':
+                        e.preventDefault();
+                        showSection('practice');
+                        break;
+                    case '4':
+                        e.preventDefault();
+                        showSection('visualize');
+                        break;
+                    case 'd':
+                        e.preventDefault();
+                        toggleTheme();
+                        break;
+                }
+            }
+        });
+        
+        // Performance optimization
+        function debounce(func, wait) {
+            let timeout;
+            return function executedFunction(...args) {
+                const later = () => {
+                    clearTimeout(timeout);
+                    func(...args);
+                };
+                clearTimeout(timeout);
+                timeout = setTimeout(later, wait);
+            };
+        }
+        
+        // Smooth scrolling utility
+        function smoothScrollTo(element) {
+            if (element) {
+                element.scrollIntoView({
+                    behavior: 'smooth',
+                    block: 'start'
+                });
+            }
+        }
+
+        function updateBinarySearchDisplay() {
+            const data = visualizationState.data;
+            const target = visualizationState.target;
+            const left = visualizationState.left;
+            const right = visualizationState.right;
+            const mid = visualizationState.mid;
+            
+            let barsHTML = '';
+            for (let index = 0; index < data.length; index++) {
+                const value = data[index];
+                let className = 'bar';
+                let style = 'height: 60px; background: var(--color-secondary);';
+                
+                if (index === mid) {
+                    style = 'height: 60px; background: var(--color-warning);';
+                } else if (index >= left && index <= right) {
+                    style = 'height: 60px; background: var(--color-primary);';
+                }
+                
+                barsHTML += '<div class="' + className + '" style="' + style + '">' + value + '</div>';
+            }
+            
+            document.getElementById('viz-display').innerHTML = '<div style="text-align: center; margin: var(--space-16) 0;"><p><strong>Target:</strong> ' + target + '</p><div class="sorting-bars" style="height: 100px;">' + barsHTML + '</div></div>';
+        }
+
+        function updateBFSDisplay() {
+            const visited = visualizationState.visited;
+            const queue = visualizationState.queue;
+            const current = visualizationState.current;
+            
+            document.getElementById('viz-display').innerHTML = '<div style="text-align: center;"><p><strong>Current Node:</strong> ' + current + '</p><p><strong>Queue:</strong> [' + queue.join(', ') + ']</p><p><strong>Visited:</strong> [' + visited.join(', ') + ']</p><div style="margin: var(--space-16); font-family: var(--font-family-mono);">A --- B --- D<br>|     |<br>C --- E --- F</div></div>';
+        }
+
+        function playVisualization() {
+            visualizationState.playing = true;
+            stepVisualization();
+        }
+
+        function pauseVisualization() {
+            visualizationState.playing = false;
+        }
+
+        function stepVisualization() {
+            const { current, step } = visualizationState;
+            
+            if (current === 'bubble-sort') {
+                stepBubbleSort();
+            } else if (current === 'binary-search') {
+                stepBinarySearch();
+            } else if (current === 'bfs') {
+                stepBFS();
+            }
+            
+            if (visualizationState.playing) {
+                setTimeout(() => {
+                    if (visualizationState.playing) {
+                        stepVisualization();
+                    }
+                }, 1000 - (visualizationState.speed * 100));
+            }
+        }
+
+        function stepBubbleSort() {
+            // Simplified bubble sort step
+            const { data } = visualizationState;
+            const n = data.length;
+            
+            if (visualizationState.step >= n * n) {
+                document.getElementById('step-description').textContent = 'Sorting complete!';
+                visualizationState.playing = false;
+                return;
+            }
+            
+            const i = Math.floor(visualizationState.step / n);
+            const j = visualizationState.step % n;
+            
+            if (j < n - i - 1 && data[j] > data[j + 1]) {
+                [data[j], data[j + 1]] = [data[j + 1], data[j]];
+                visualizationState.comparing = [j, j + 1];
+                document.getElementById('step-description').textContent = 'Swapping ' + data[j + 1] + ' and ' + data[j];
+            } else {
+                visualizationState.comparing = [j, j + 1];
+                document.getElementById('step-description').textContent = 'Comparing ' + data[j] + ' and ' + data[j + 1];
+            }
+            
+            if (j === n - i - 2) {
+                visualizationState.sorted.push(n - i - 1);
+            }
+            
+            updateSortingDisplay();
+            visualizationState.step++;
+        }
+
+        function stepBinarySearch() {
+            const { data, target, left, right } = visualizationState;
+            
+            if (left > right) {
+                document.getElementById('step-description').textContent = 'Target not found!';
+                visualizationState.playing = false;
+                return;
+            }
+            
+            const mid = Math.floor((left + right) / 2);
+            visualizationState.mid = mid;
+            
+            if (data[mid] === target) {
+                document.getElementById('step-description').textContent = 'Found target ' + target + ' at index ' + mid + '!';
+                visualizationState.playing = false;
+            } else if (data[mid] < target) {
+                visualizationState.left = mid + 1;
+                document.getElementById('step-description').textContent = data[mid] + ' < ' + target + ', search right half';
+            } else {
+                visualizationState.right = mid - 1;
+                document.getElementById('step-description').textContent = data[mid] + ' > ' + target + ', search left half';
+            }
+            
+            updateBinarySearchDisplay();
+        }
+
+        function stepBFS() {
+            const { graph, visited, queue } = visualizationState;
+            
+            if (queue.length === 0) {
+                document.getElementById('step-description').textContent = 'BFS traversal complete!';
+                visualizationState.playing = false;
+                return;
+            }
+            
+            const current = queue.shift();
+            visited.push(current);
+            visualizationState.current = current;
+            
+            // Add unvisited neighbors to queue
+            for (const neighbor of graph[current] || []) {
+                if (!visited.includes(neighbor) && !queue.includes(neighbor)) {
+                    queue.push(neighbor);
+                }
+            }
+            
+            document.getElementById('step-description').textContent = 'Visiting node ' + current;
+            updateBFSDisplay();
+        }
+
+        function resetVisualization() {
+            visualizationState.playing = false;
+            visualizationState.step = 0;
+            
+            if (visualizationState.current) {
+                showVisualization(visualizationState.current);
+            }
+        }
+
+        function setSpeed(value) {
+            visualizationState.speed = parseInt(value);
+        }
+
+        // Complexity Analysis Function
+        function showComplexityAnalysis() {
+            document.getElementById('learn-category-content').style.display = 'none';
+            document.getElementById('learn-detail-content').style.display = 'block';
+            
+            let complexityContent = '<button class="back-btn" onclick="showDataStructureCategory(\'linear\')">' +
+                '← Back to Data Structures' +
+                '</button>' +
+                '<div class="item-detail fade-in">' +
+                '<h2>Big O Analysis</h2>' +
+                '<div class="detail-section">' +
+                '<h4>Understanding Time Complexity</h4>' +
+                '<p>Big O notation describes how the runtime of an algorithm grows as the input size increases.</p>' +
+                '</div>' +
+                '<div class="cheat-sheet-grid">';
+            
+            for (let i = 0; i < bigONotations.length; i++) {
+                const item = bigONotations[i];
+                complexityContent += '<div class="cheat-card">' +
+                    '<h5>' + item.notation + ' - ' + item.name + '</h5>' +
+                    '<p>' + item.description + '</p>' +
+                    '<p><strong>Example:</strong> ' + item.example + '</p>' +
+                    '</div>';
+            }
+            
+            complexityContent += '</div>' +
+                '<div class="detail-section">' +
+                '<h4>Complexity Comparison Tool</h4>' +
+                '<select class="form-control" onchange="updateComplexityTable()">' +
+                '<option value="">Choose a category...</option>' +
+                '<option value="data-structures">Data Structures</option>' +
+                '<option value="sorting">Sorting Algorithms</option>' +
+                '<option value="searching">Searching Algorithms</option>' +
+                '</select>' +
+                '<div id="complexity-table-container" style="margin-top: var(--space-16);"></div>' +
+                '</div>' +
+                '</div>';
+            
+            document.getElementById('learn-detail-content').innerHTML = complexityContent;
+        }
+
+        // Complexity Analyzer functions
+        function initComplexitySection() {
+            try {
+                displayBigOGuide();
+            } catch (error) {
+                console.error('Error initializing complexity section:', error);
+            }
+        }
+
+        function updateComplexityTable() {
+            const selectElement = document.getElementById('complexity-select') || document.querySelector('select.form-control');
+            if (!selectElement) return;
+            const selectValue = selectElement.value;
+            const container = document.getElementById('complexity-table-container');
+            
+            if (!selectValue) {
+                container.innerHTML = '<p>Please select a category to see the comparison table.</p>';
+                return;
+            }
+            
+            const data = complexityData[selectValue];
+            let tableHTML = '';
+            
+            if (selectValue === 'data-structures') {
+                tableHTML = `
+                    <h3>Data Structure Operations Complexity</h3>
+                    <table class="complexity-table">
+                        <thead>
+                            <tr>
+                                <th>Data Structure</th>
+                                <th>Access</th>
+                                <th>Search</th>
+                                <th>Insert</th>
+                                <th>Delete</th>
+                                <th>Space</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            ${data.map(item => `
+                                <tr>
+                                    <td><strong>${item.name}</strong></td>
+                                    <td>${item.access}</td>
+                                    <td>${item.search}</td>
+                                    <td>${item.insert}</td>
+                                    <td>${item.delete}</td>
+                                    <td>${item.space}</td>
+                                </tr>
+                            `).join('')}
+                        </tbody>
+                    </table>
+                    <p style="font-size: var(--font-size-sm); color: var(--color-text-secondary); margin-top: var(--space-8);">* Average case complexity. Hash table worst case is O(n).</p>
+                `;
+            } else {
+                tableHTML = `
+                    <h3>${selectValue.charAt(0).toUpperCase() + selectValue.slice(1)} Algorithms Complexity</h3>
+                    <table class="complexity-table">
+                        <thead>
+                            <tr>
+                                <th>Algorithm</th>
+                                <th>Best Case</th>
+                                <th>Average Case</th>
+                                <th>Worst Case</th>
+                                <th>Space</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            ${data.map(item => `
+                                <tr>
+                                    <td><strong>${item.name}</strong></td>
+                                    <td>${item.best}</td>
+                                    <td>${item.average}</td>
+                                    <td>${item.worst}</td>
+                                    <td>${item.space}</td>
+                                </tr>
+                            `).join('')}
+                        </tbody>
+                    </table>
+                `;
+            }
+            
+            container.innerHTML = tableHTML;
+        }
+
+        function displayBigOGuide() {
+            try {
+                const container = document.getElementById('big-o-guide');
+                if (container) {
+                    let content = '<div class="items-grid">';
+                    for (let i = 0; i < bigONotations.length; i++) {
+                        const item = bigONotations[i];
+                        content += '<div class="card">' +
+                            '<div class="card__body">' +
+                            '<h4>' + item.notation + ' - ' + item.name + '</h4>' +
+                            '<p>' + item.description + '</p>' +
+                            '<p><strong>Example:</strong> ' + item.example + '</p>' +
+                            '</div>' +
+                            '</div>';
+                    }
+                    content += '</div>';
+                    container.innerHTML = content;
+                }
+            } catch (error) {
+                console.error('Error displaying Big O guide:', error);
+            }
+        }
+
+        // Quiz functions
+        function startQuiz() {
+            currentQuizQuestion = 0;
+            quizScore = 0;
+            userAnswers = [];
+            shuffledQuestions = [...quizQuestions].sort(() => Math.random() - 0.5);
+            
+            document.getElementById('quiz-start').style.display = 'none';
+            document.getElementById('quiz-results').style.display = 'none';
+            document.getElementById('quiz-content').style.display = 'block';
+            
+            showQuizQuestion();
+        }
+
+        function showQuizQuestion() {
+            if (currentQuizQuestion >= shuffledQuestions.length) {
+                showQuizResults();
+                return;
+            }
+            
+            const question = shuffledQuestions[currentQuizQuestion];
+            const progress = ((currentQuizQuestion + 1) / shuffledQuestions.length) * 100;
+            
+            document.getElementById('quiz-progress-bar').style.width = progress + '%';
+            
+            document.getElementById('quiz-question-container').innerHTML = `
+                <div class="quiz-question fade-in">
+                    <h3>Question ${currentQuizQuestion + 1} of ${shuffledQuestions.length}</h3>
+                    <p style="font-size: var(--font-size-lg); margin: var(--space-16) 0;">${question.question}</p>
+                    
+                    <div class="quiz-options">
+';
+            
+            let optionsHTML = '';
+            for (let index = 0; index < question.options.length; index++) {
+                const option = question.options[index];
+                optionsHTML += '<div class="quiz-option" onclick="selectAnswer(' + index + ')">' +
+                    String.fromCharCode(65 + index) + '. ' + option +
+                    '</div>';
+            }
+            
+            optionsHTML += '
+                    </div>
+                    
+                    <button class="btn btn--primary" onclick="nextQuestion()" style="margin-top: var(--space-16); opacity: 0.5;" disabled id="next-btn">
+                        ${currentQuizQuestion === shuffledQuestions.length - 1 ? 'Finish Quiz' : 'Next Question'}
+                    </button>
+                </div>
+            `;
+        }
+
+        function selectAnswer(answerIndex) {
+            // Remove previous selection
+            const options = document.querySelectorAll('.quiz-option');
+            options.forEach(option => option.classList.remove('selected'));
+            
+            // Add selection to clicked option
+            options[answerIndex].classList.add('selected');
+            
+            // Store user's answer
+            userAnswers[currentQuizQuestion] = answerIndex;
+            
+            // Enable next button
+            const nextBtn = document.getElementById('next-btn');
+            nextBtn.style.opacity = '1';
+            nextBtn.disabled = false;
+        }
+
+        function nextQuestion() {
+            const question = shuffledQuestions[currentQuizQuestion];
+            const userAnswer = userAnswers[currentQuizQuestion];
+            
+            // Check if answer is correct
+            if (userAnswer === question.correct) {
+                quizScore++;
+            }
+            
+            currentQuizQuestion++;
+            showQuizQuestion();
+        }
+
+        function showQuizResults() {
+            const percentage = Math.round((quizScore / shuffledQuestions.length) * 100);
+            let feedback = '';
+            
+            if (percentage >= 80) {
+                feedback = 'Excellent! You have a strong understanding of DSA concepts.';
+            } else if (percentage >= 60) {
+                feedback = 'Good job! You have a decent grasp of the basics.';
+            } else if (percentage >= 40) {
+                feedback = 'Not bad, but there\'s room for improvement. Keep studying!';
+            } else {
+                feedback = 'Don\'t worry! Everyone starts somewhere. Review the concepts and try again.';
+            }
+            
+            document.getElementById('quiz-content').style.display = 'none';
+            document.getElementById('quiz-results').style.display = 'block';
+            
+            document.getElementById('quiz-results').innerHTML = `
+                <div class="quiz-score fade-in">
+                    <h2>Quiz Complete!</h2>
+                    <div style="font-size: var(--font-size-4xl); font-weight: var(--font-weight-bold); color: var(--color-primary); margin: var(--space-16) 0;">
+                        ${quizScore}/${shuffledQuestions.length}
+                    </div>
+                    <div style="font-size: var(--font-size-2xl); margin-bottom: var(--space-16);">
+                        ${percentage}%
+                    </div>
+                    <p>${feedback}</p>
+                    
+                    <div style="display: flex; gap: var(--space-16); justify-content: center; margin-top: var(--space-24);">
+                        <button class="btn btn--primary" onclick="startQuiz()">Retake Quiz</button>
+                        <button class="btn btn--secondary" onclick="showQuizStart()">Back to Start</button>
+                    </div>
+                </div>
+                
+                <div style="margin-top: var(--space-32); text-align: left;">
+                    <h3>Review Your Answers</h3>
+';
+            
+            let reviewHTML = '';
+            for (let index = 0; index < shuffledQuestions.length; index++) {
+                const question = shuffledQuestions[index];
+                const isCorrect = userAnswers[index] === question.correct;
+                
+                reviewHTML += '<div style="margin: var(--space-16) 0; padding: var(--space-16); border: 1px solid var(--color-border); border-radius: var(--radius-base);">' +
+                    '<p><strong>Q' + (index + 1) + ':</strong> ' + question.question + '</p>' +
+                    '<p style="color: ' + (isCorrect ? 'var(--color-success)' : 'var(--color-error)') + ';">Your answer: ' + question.options[userAnswers[index]] + '</p>';
+                
+                if (!isCorrect) {
+                    reviewHTML += '<p style="color: var(--color-success);">Correct answer: ' + question.options[question.correct] + '</p>';
+                }
+                
+                reviewHTML += '</div>';
+            }
+            
+            const finalHTML = reviewHTML + '
+                </div>
+            `;
+        }
+
+        function showQuizStart() {
+            document.getElementById('quiz-results').style.display = 'none';
+            document.getElementById('quiz-content').style.display = 'none';
+            document.getElementById('quiz-start').style.display = 'block';
+        }
+
+        // Enhanced Resources functions for v2.0
+        function initResourcesSection() {
+            showResourceCategory('roadmap');
+        }
+
+        function showResourceCategory(category) {
+            // Update sidebar
+            const categoryButtons = document.querySelectorAll('#resources .category-btn');
+            categoryButtons.forEach(btn => btn.classList.remove('active'));
+            if (event && event.target) {
+                event.target.classList.add('active');
+            } else {
+                const activeBtn = document.querySelector(`[onclick="showResourceCategory('${category}')"]`);
+                if (activeBtn) activeBtn.classList.add('active');
+            }
+            
+            const container = document.getElementById('resource-content');
+            
+            switch(category) {
+                case 'roadmap':
+                    container.innerHTML = `
+                        <h3>Recommended Learning Path</h3>
+                        <p>Follow this structured roadmap to master Data Structures &amp; Algorithms:</p>
+                        <div style="margin-top: var(--space-24);">
+                            ${learningRoadmap.map(item => `
+                                <div class="roadmap-step">
+                                    <div class="step-number">${item.step}</div>
+                                    <div>
+                                        <h4>${item.topic}</h4>
+                                        <p>${item.description}</p>
+                                    </div>
+                                </div>
+                            `).join('')}
+                        </div>
+                    `;
+                    break;
+                    
+                case 'cheatsheets':
+                    container.innerHTML = `
+                        <h3>Quick Reference Cheat Sheets</h3>
+                        <div class="cheat-sheet-grid">
+                            <div class="cheat-card">
+                                <h4>Big O Complexities</h4>
+                                <div style="font-family: var(--font-family-mono); font-size: var(--font-size-sm);">
+                                    <div>O(1) - Constant</div>
+                                    <div>O(log n) - Logarithmic</div>
+                                    <div>O(n) - Linear</div>
+                                    <div>O(n log n) - Linearithmic</div>
+                                    <div>O(n²) - Quadratic</div>
+                                    <div>O(2^n) - Exponential</div>
+                                </div>
+                            </div>
+                            
+                            <div class="cheat-card">
+                                <h4>Array Operations</h4>
+                                <div style="font-family: var(--font-family-mono); font-size: var(--font-size-sm);">
+                                    <div>Access: O(1)</div>
+                                    <div>Search: O(n)</div>
+                                    <div>Insert: O(n)</div>
+                                    <div>Delete: O(n)</div>
+                                    <div>Space: O(n)</div>
+                                </div>
+                            </div>
+                            
+                            <div class="cheat-card">
+                                <h4>Sorting Algorithms</h4>
+                                <div style="font-family: var(--font-family-mono); font-size: var(--font-size-sm);">
+                                    <div>Bubble: O(n²)</div>
+                                    <div>Selection: O(n²)</div>
+                                    <div>Insertion: O(n²)</div>
+                                    <div>Merge: O(n log n)</div>
+                                    <div>Quick: O(n log n) avg</div>
+                                </div>
+                            </div>
+                            
+                            <div class="cheat-card">
+                                <h4>Tree Operations</h4>
+                                <div style="font-family: var(--font-family-mono); font-size: var(--font-size-sm);">
+                                    <div>BST Search: O(log n)</div>
+                                    <div>BST Insert: O(log n)</div>
+                                    <div>BST Delete: O(log n)</div>
+                                    <div>Traversal: O(n)</div>
+                                    <div>Space: O(n)</div>
+                                </div>
+                            </div>
+                            
+                            <div class="cheat-card">
+                                <h4>Graph Algorithms</h4>
+                                <div style="font-family: var(--font-family-mono); font-size: var(--font-size-sm);">
+                                    <div>BFS: O(V + E)</div>
+                                    <div>DFS: O(V + E)</div>
+                                    <div>Dijkstra: O(V²)</div>
+                                    <div>Floyd: O(V³)</div>
+                                    <div>Space: O(V)</div>
+                                </div>
+                            </div>
+                            
+                            <div class="cheat-card">
+                                <h4>Hash Table</h4>
+                                <div style="font-family: var(--font-family-mono); font-size: var(--font-size-sm);">
+                                    <div>Search: O(1) avg</div>
+                                    <div>Insert: O(1) avg</div>
+                                    <div>Delete: O(1) avg</div>
+                                    <div>Worst: O(n)</div>
+                                    <div>Space: O(n)</div>
+                                </div>
+                            </div>
+                        </div>
+                    `;
+                    break;
+                    
+                case 'interview':
+                    container.innerHTML = `
+                        <h3>Interview Preparation Guide</h3>
+                        
+                        <div class="detail-section">
+                            <h4>Common Interview Topics</h4>
+                            <div class="cheat-sheet-grid">
+                                <div class="cheat-card">
+                                    <h5>Arrays &amp; Strings</h5>
+                                    <ul style="font-size: var(--font-size-sm); margin: var(--space-8) 0;">
+                                        <li>Two pointers technique</li>
+                                        <li>Sliding window</li>
+                                        <li>Array rotation</li>
+                                        <li>String manipulation</li>
+                                    </ul>
+                                </div>
+                                
+                                <div class="cheat-card">
+                                    <h5>Linked Lists</h5>
+                                    <ul style="font-size: var(--font-size-sm); margin: var(--space-8) 0;">
+                                        <li>Reverse linked list</li>
+                                        <li>Detect cycles</li>
+                                        <li>Merge sorted lists</li>
+                                        <li>Find nth from end</li>
+                                    </ul>
+                                </div>
+                                
+                                <div class="cheat-card">
+                                    <h5>Trees &amp; Graphs</h5>
+                                    <ul style="font-size: var(--font-size-sm); margin: var(--space-8) 0;">
+                                        <li>Tree traversals</li>
+                                        <li>Binary search trees</li>
+                                        <li>Graph traversals (BFS/DFS)</li>
+                                        <li>Shortest path algorithms</li>
+                                    </ul>
+                                </div>
+                                
+                                <div class="cheat-card">
+                                    <h5>Dynamic Programming</h5>
+                                    <ul style="font-size: var(--font-size-sm); margin: var(--space-8) 0;">
+                                        <li>Fibonacci variants</li>
+                                        <li>Knapsack problem</li>
+                                        <li>Longest subsequences</li>
+                                        <li>Matrix path problems</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="detail-section">
+                            <h4>Interview Strategy</h4>
+                            <div class="card">
+                                <div class="card__body">
+                                    <ol style="margin: 0; padding-left: var(--space-20);">
+                                        <li><strong>Understand the problem:</strong> Ask clarifying questions</li>
+                                        <li><strong>Plan your approach:</strong> Think before coding</li>
+                                        <li><strong>Start with brute force:</strong> Then optimize</li>
+                                        <li><strong>Think out loud:</strong> Explain your reasoning</li>
+                                        <li><strong>Test your solution:</strong> Walk through examples</li>
+                                        <li><strong>Analyze complexity:</strong> Time and space</li>
+                                    </ol>
+                                </div>
+                            </div>
+                        </div>
+                    `;
+                    break;
+                    
+                case 'tips':
+                    container.innerHTML = `
+                        <h3>Study Tips &amp; Best Practices</h3>
+                        
+                        <div class="cheat-sheet-grid">
+                            <div class="cheat-card">
+                                <h4>📚 Learning Strategy</h4>
+                                <ul style="font-size: var(--font-size-sm); margin: var(--space-8) 0;">
+                                    <li>Start with fundamentals</li>
+                                    <li>Practice daily (even 30 minutes)</li>
+                                    <li>Focus on understanding over memorization</li>
+                                    <li>Draw diagrams and visualize</li>
+                                    <li>Implement from scratch</li>
+                                </ul>
+                            </div>
+                            
+                            <div class="cheat-card">
+                                <h4>📝 Problem Solving</h4>
+                                <ul style="font-size: var(--font-size-sm); margin: var(--space-8) 0;">
+                                    <li>Read problem carefully</li>
+                                    <li>Work through examples manually</li>
+                                    <li>Identify patterns and edge cases</li>
+                                    <li>Start with simple solutions</li>
+                                    <li>Optimize step by step</li>
+                                </ul>
+                            </div>
+                            
+                            <div class="cheat-card">
+                                <h4>🤝 Community</h4>
+                                <ul style="font-size: var(--font-size-sm); margin: var(--space-8) 0;">
+                                    <li>Join online coding communities</li>
+                                    <li>Participate in coding contests</li>
+                                    <li>Discuss solutions with others</li>
+                                    <li>Teach concepts to reinforce learning</li>
+                                    <li>Review others' code</li>
+                                </ul>
+                            </div>
+                            
+                            <div class="cheat-card">
+                                <h4>🕰️ Time Management</h4>
+                                <ul style="font-size: var(--font-size-sm); margin: var(--space-8) 0;">
+                                    <li>Set realistic daily goals</li>
+                                    <li>Track your progress</li>
+                                    <li>Take regular breaks</li>
+                                    <li>Review previously learned topics</li>
+                                    <li>Practice under time pressure</li>
+                                </ul>
+                            </div>
+                        </div>
+                        
+                        <div class="detail-section">
+                            <h4>Recommended Practice Platforms</h4>
+                            <div class="card">
+                                <div class="card__body">
+                                    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: var(--space-16);">
+                                        <div>
+                                            <strong>Beginner Friendly:</strong>
+                                            <ul style="font-size: var(--font-size-sm); margin-top: var(--space-4);">
+                                                <li>Codecademy</li>
+                                                <li>freeCodeCamp</li>
+                                                <li>Khan Academy</li>
+                                            </ul>
+                                        </div>
+                                        <div>
+                                            <strong>Practice Problems:</strong>
+                                            <ul style="font-size: var(--font-size-sm); margin-top: var(--space-4);">
+                                                <li>LeetCode</li>
+                                                <li>HackerRank</li>
+                                                <li>CodeSignal</li>
+                                            </ul>
+                                        </div>
+                                        <div>
+                                            <strong>Competitive:</strong>
+                                            <ul style="font-size: var(--font-size-sm); margin-top: var(--space-4);">
+                                                <li>Codeforces</li>
+                                                <li>AtCoder</li>
+                                                <li>TopCoder</li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    `;
+                    break;
+                    
+                case 'complexity':
+                    container.innerHTML = `
+                        <h3>Complete Complexity Guide</h3>
+                        
+                        <div class="detail-section">
+                            <h4>Time Complexity Comparison</h4>
+                            <select class="form-control" onchange="updateComplexityTable()">
+                                <option value="">Choose a category...</option>
+                                <option value="data-structures">Data Structures</option>
+                                <option value="sorting">Sorting Algorithms</option>
+                                <option value="searching">Searching Algorithms</option>
+                            </select>
+                            <div id="complexity-table-container" style="margin-top: var(--space-16);"></div>
+                        </div>
+                        
+                        <div class="detail-section">
+                            <h4>Big O Notation Guide</h4>
+                            <div class="cheat-sheet-grid">
+                                ${bigONotations.map(item => `
+                                    <div class="cheat-card">
+                                        <h5>${item.notation} - ${item.name}</h5>
+                                        <p style="font-size: var(--font-size-sm);">${item.description}</p>
+                                        <p style="font-size: var(--font-size-sm);"><strong>Example:</strong> ${item.example}</p>
+                                    </div>
+                                `).join('')}
+                            </div>
+                        </div>
+                        
+                        <div class="detail-section">
+                            <h4>Space Complexity</h4>
+                            <div class="card">
+                                <div class="card__body">
+                                    <p>Space complexity measures the amount of memory an algorithm uses relative to the input size.</p>
+                                    <ul style="margin-top: var(--space-8);">
+                                        <li><strong>O(1):</strong> Constant extra space (variables, counters)</li>
+                                        <li><strong>O(n):</strong> Linear extra space (arrays, recursion depth)</li>
+                                        <li><strong>O(log n):</strong> Logarithmic space (binary tree recursion)</li>
+                                        <li><strong>O(n²):</strong> Quadratic space (2D arrays, memoization tables)</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    `;
+                    break;
+            }
+        }
+
+        // Initialize the app for v2.0
+        document.addEventListener('DOMContentLoaded', function() {
+            try {
+                // Set up initial state
+                initComplexitySection();
+                initResourcesSection();
+                initPracticeSection();
+                
+                // Initialize theme based on user preference
+                const preferredTheme = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+                currentTheme = preferredTheme;
+                document.documentElement.setAttribute('data-color-scheme', currentTheme);
+                
+                const themeToggle = document.querySelector('.theme-toggle');
+                if (themeToggle) {
+                    themeToggle.textContent = currentTheme === 'light' ? '🌙' : '☀️';
+                }
+                
+                // Add glossary functionality
+                initializeGlossary();
+                
+                // Initialize default content
+                showDataStructureCategory('linear');
+                
+                console.log('DSA Learning Agent initialized successfully!');
+            } catch (error) {
+                console.error('Error initializing app:', error);
+            }
+        });
+        
+        // Glossary functionality
+        function initializeGlossary() {
+            // This would add interactive glossary terms throughout the content
+            // For now, just a placeholder for the concept
+        }
+
+        // Badge earning simulation
+        function earnBadge(badgeName) {
+            const badge = badges.find(b => b.name === badgeName);
+            if (badge && !badge.earned) {
+                badge.earned = true;
+                
+                // Show badge notification
+                const notification = document.createElement('div');
+                notification.innerHTML = '<div style="position: fixed; top: 20px; right: 20px; background: var(--color-success); color: var(--color-btn-primary-text); padding: var(--space-16); border-radius: var(--radius-lg); box-shadow: var(--shadow-lg); z-index: 1000; animation: slideIn 0.5s ease;"><strong>🎉 Badge Earned!</strong><br>' + badge.icon + ' ' + badge.name + '<br><small>' + badge.description + '</small></div>';
+                
+                document.body.appendChild(notification);
+                
+                setTimeout(() => {
+                    notification.remove();
+                }, 3000);
+            }
+        }
+
+        // Simulate some interactions for demo
+        function simulateProgress() {
+            // This would be called when user completes activities
+            earnBadge('Quiz Master');
+            userProgress.overall = Math.min(100, userProgress.overall + 5);
+            updateProgressDisplay();
+        }
+
+        function updateProgressDisplay() {
+            // Update progress bars on dashboard
+            const progressBars = document.querySelectorAll('.progress-fill');
+            progressBars.forEach((bar, index) => {
+                const values = [userProgress.dataStructures, userProgress.algorithms, userProgress.overall];
+                if (values[index]) {
+                    bar.style.width = values[index] + '%';
+                }
+            });
+        }
+    </script>
+    
+    <!-- Additional Canvas for Advanced Visualizations -->
+    <canvas id="visualization-canvas" style="display: none;"></canvas>
+</body>
+</html>
