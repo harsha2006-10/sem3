@@ -6,4 +6,4 @@ def tower_of_hanoi_recursive(n, source, auxiliary, target):
     print(f"Move disk {n} from rod {source} to rod {target}")
     tower_of_hanoi_recursive(n-1, auxiliary, source, target)
 
-tower_of_hanoi_recursive(3, 'A', 'B', 'C')
+tower_of_hanoi_recursive(10, 'A', 'B', 'C')
